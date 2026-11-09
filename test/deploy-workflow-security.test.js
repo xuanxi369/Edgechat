@@ -122,7 +122,7 @@ test("资源确认脚本仅复用配置的 KV 标题，避免隐式共享会话�
 	const resourceStep = getStep("Ensure Cloudflare resources");
 	assert.match(
 		resourceStep,
-		/EDGECHAT_KV_NAMESPACE_TITLE: \$\{\{ vars\.EDGECHAT_KV_NAMESPACE_TITLE \|\| 'cfchat-sessions' \}\}/,
+		/EDGECHAT_KV_NAMESPACE_TITLE: \$\{\{ vars\.EDGECHAT_KV_NAMESPACE_TITLE \|\| 'CharlesChat' \}\}/,
 	);
 });
 

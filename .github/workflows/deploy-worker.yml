@@ -15,6 +15,7 @@ on:
       - "package.json"
       - "package-lock.json"
       - "biome.json"
+      - "wrangler.toml"
       - "wrangler.example.toml"
   workflow_dispatch:
     inputs:
@@ -64,16 +65,24 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          EDGECHAT_KV_NAMESPACE_TITLE: ${{ vars.EDGECHAT_KV_NAMESPACE_TITLE || 'cfchat-sessions' }}
+          EDGECHAT_D1_DATABASE_NAME: ${{ vars.EDGECHAT_D1_DATABASE_NAME || 'edgechat-db' }}
+          EDGECHAT_KV_NAMESPACE_TITLE: ${{ vars.EDGECHAT_KV_NAMESPACE_TITLE || 'CharlesChat' }}
+          EDGECHAT_R2_BUCKET_NAME: ${{ vars.EDGECHAT_R2_BUCKET_NAME || 'charleschat' }}
         run: node .github/scripts/ensure-cloudflare-resources.mjs
       - name: Generate wrangler config for CI
         shell: bash
         env:
           R2_AVAILABLE: ${{ steps.ensure_resources.outputs.r2_available }}
           R2_BUCKET_NAME: ${{ steps.ensure_resources.outputs.r2_bucket_name }}
+          WORKER_NAME: ${{ vars.EDGECHAT_WORKER_NAME || 'edgechat' }}
+          D1_DATABASE_NAME: ${{ steps.ensure_resources.outputs.d1_database_name }}
+          SITE_ORIGINS: ${{ vars.SITE_ORIGINS || 'https://chat.iieao.online' }}
           MESSAGE_RETENTION_DAYS: ${{ vars.MESSAGE_RETENTION_DAYS || '30' }}
         run: |
           cp wrangler.example.toml wrangler.ci.toml
+          sed -i "s|^name = \"cfchat\"$|name = \"${WORKER_NAME}\"|" wrangler.ci.toml
+          sed -i "s|^database_name = .*|database_name = \"${D1_DATABASE_NAME}\"|" wrangler.ci.toml
+          sed -i "s|^SITE_ORIGINS = .*|SITE_ORIGINS = \"${SITE_ORIGINS}\"|" wrangler.ci.toml
           sed -i "s|^MESSAGE_RETENTION_DAYS = .*|MESSAGE_RETENTION_DAYS = \"${MESSAGE_RETENTION_DAYS}\"|" wrangler.ci.toml
           sed -i "s|YOUR_D1_DATABASE_ID_HERE|${{ steps.ensure_resources.outputs.d1_database_id }}|g" wrangler.ci.toml
           sed -i "s|YOUR_KV_NAMESPACE_ID_HERE|${{ steps.ensure_resources.outputs.kv_namespace_id }}|g" wrangler.ci.toml
@@ -133,7 +142,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          EDGECHAT_WORKER_NAME: cfchat
+          EDGECHAT_WORKER_NAME: ${{ vars.EDGECHAT_WORKER_NAME || 'edgechat' }}
           EDGECHAT_SECRETS_FILE: .tmp/worker-secrets.json
           EDGECHAT_ENCRYPTION_KEYRING: ${{ secrets.EDGECHAT_ENCRYPTION_KEYRING }}
           EDGECHAT_APPLY_ENCRYPTION_KEYRING: ${{ github.event_name == 'workflow_dispatch' && inputs.apply_encryption_keyring || false }}
