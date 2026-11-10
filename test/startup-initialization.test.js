@@ -4,6 +4,7 @@ import test from 'node:test';
 import { runInNewContext } from 'node:vm';
 import { reactive } from 'vue';
 import api from '../frontend/src/api.js';
+import { APP_NAME, displaySiteName } from '../frontend/src/brand.js';
 import { normalizeSiteColorTheme } from '../shared/site-theme.ts';
 
 const read = (name) => readFileSync(new URL(`../frontend/src/${name}`, import.meta.url), 'utf8');
@@ -23,7 +24,7 @@ test('startup test source extraction supports LF and CRLF checkouts', () => {
 function startup({ token = '', native = false, origin = '', documentSession = false, site, session } = {}) {
   const calls = { site: 0, session: 0, metadata: [], themes: [] };
   const context = {
-    reactive, AbortController, normalizeSiteColorTheme,
+    reactive, AbortController, normalizeSiteColorTheme, APP_NAME, displaySiteName,
     isDemoMode: false, runtimeSessionToken: '', isCapacitorAndroid: native,
     hasDocumentSession: documentSession, isGatewayMode: documentSession,
     getStoredToken: () => token,
@@ -73,7 +74,7 @@ test('a pending site request never blocks anonymous startup or the login route',
   const { store, calls } = startup();
   await store.initialize();
   assert.equal(store.ready, true);
-  assert.equal(store.site.siteName, 'Edgechat');
+  assert.equal(store.site.siteName, APP_NAME);
   assert.equal(store.site.colorTheme, 'default');
   assert.equal(calls.site, 1);
   assert.equal(calls.session, 0);
@@ -101,7 +102,7 @@ test('session restoration runs beside metadata and concurrent initialization sha
   await first;
   assert.equal(await navigation, true);
   assert.equal(storedToken(), 'restored');
-  assert.equal(store.site.siteName, 'Edgechat');
+  assert.equal(store.site.siteName, APP_NAME);
   site.resolve({ site: { siteName: 'Custom site', siteIconUrl: '/custom.png', colorTheme: 'cream-sakura' } });
   await flush();
   assert.equal(store.site.siteName, 'Custom site');
@@ -119,7 +120,7 @@ test('metadata failures preserve defaults and cannot clear a restored session', 
   await flush();
   assert.equal(store.ready, true);
   assert.equal(store.session.token, 'valid');
-  assert.equal(calls.metadata.at(-1).siteName, 'Edgechat');
+  assert.equal(calls.metadata.at(-1).siteName, APP_NAME);
 });
 
 test('invalid or timed out sessions keep protected routes closed while metadata is pending', async () => {

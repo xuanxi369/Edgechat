@@ -97,11 +97,11 @@ useOverlayLifecycle({
   position: fixed;
   inset: 0;
   z-index: 120;
-  background: rgba(11, 20, 26, 0.42);
+  background: var(--chat-scrim);
 }
 
 .mobile-navigation-drawer {
-  width: min(84vw, 320px);
+  width: min(calc(100% - 24px), 360px);
   height: 100%;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -114,9 +114,9 @@ useOverlayLifecycle({
 
 .mobile-navigation-drawer__header {
   display: grid;
-  grid-template-columns: 48px minmax(0, 1fr) 44px 44px;
+  grid-template-columns: 36px minmax(0, 1fr) 44px 44px;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   padding: 4px 4px 18px;
   border-bottom: 1px solid var(--chat-line);
 }
@@ -193,9 +193,14 @@ useOverlayLifecycle({
 }
 
 .mobile-navigation-drawer__actions button[aria-current="page"] {
-  background: rgba(var(--site-brand-rgb, 0, 128, 105), 0.1);
-  color: var(--site-brand, #008069);
+  background: var(--chat-selected);
+  color: var(--chat-accent);
 }
+
+.mobile-navigation-drawer__header .ui-avatar { width: 36px; height: 36px; border-radius: 12px; }
+.mobile-navigation-drawer__actions :is(button, a):focus-visible,
+.mobile-navigation-drawer__close:focus-visible { outline: 2px solid var(--chat-accent); outline-offset: 2px; }
+:global(:root[data-interface-theme="dark"]) .mobile-navigation-drawer__actions img { filter: invert(1); }
 
 .mobile-navigation-drawer__actions .mobile-navigation-drawer__danger {
   color: var(--chat-danger);

@@ -171,11 +171,11 @@ export function useBrowserNotifications(options = {}) {
 		}
 
 		const callInvite = event?.type === 'call_invite';
-		const title = callInvite ? `${room.name || 'EdgeChat'} · ${t('call.incoming')}` : event?.replyToMe
-			? t("notifications.repliedTitle", { room: room.name || "EdgeChat" })
+		const title = callInvite ? `${room.name || 'IIEAO·CHAT'} · ${t('call.incoming')}` : event?.replyToMe
+			? t("notifications.repliedTitle", { room: room.name || "IIEAO·CHAT" })
 			: event?.mentionsMe
-				? t("notifications.mentionedTitle", { room: room.name || "EdgeChat" })
-				: room.name || "EdgeChat";
+				? t("notifications.mentionedTitle", { room: room.name || "IIEAO·CHAT" })
+				: room.name || "IIEAO·CHAT";
 		const senderName =
 			event?.sender?.displayName || event?.sender?.username || "";
 			const attentionBody = [

@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue';
+import { APP_NAME, displaySiteName } from '../../brand.js';
 import api from '../../api.js';
 import store from '../../store.js';
 import UiButton from '../ui/Button.vue';
@@ -15,7 +16,7 @@ const saving = ref(false);
 const iconUploading = ref(false);
 const themeSaving = ref(false);
 const iconFileInputEl = ref(null);
-const siteForm = reactive({ siteName: 'Edgechat', siteIconUrl: '' });
+const siteForm = reactive({ siteName: APP_NAME, siteIconUrl: '' });
 const busy = computed(() => loading.value || saving.value || iconUploading.value || themeSaving.value);
 const iconPreviewUrl = computed(() => siteForm.siteIconUrl.startsWith('/files/')
   ? api.getFileUrl(siteForm.siteIconUrl)
@@ -27,7 +28,7 @@ async function loadSiteSettings() {
   error.value = '';
   try {
     const payload = await api.adminSiteSettings();
-    siteForm.siteName = payload.site?.siteName || 'Edgechat';
+    siteForm.siteName = displaySiteName(payload.site?.siteName);
     siteForm.siteIconUrl = payload.site?.siteIconUrl || '';
     store.setSite(payload.site);
   } catch (currentError) {
@@ -116,7 +117,7 @@ onMounted(loadSiteSettings);
         <span v-else>{{ siteForm.siteName.slice(0, 1) || 'C' }}</span>
       </div>
       <div class="admin-site-preview__meta">
-        <strong>{{ siteForm.siteName || 'Edgechat' }}</strong>
+        <strong>{{ displaySiteName(siteForm.siteName) }}</strong>
         <span>{{ siteForm.siteIconUrl || t('site.noIconUrl') }}</span>
       </div>
     </div>

@@ -89,7 +89,7 @@ const fixedErrorTranslations = new Map([
 	["请选择群组并填写有效的 Telegram 群 ID", "請選擇群組並填寫有效的 Telegram 群 ID"],
   ["请先连接 Telegram Bot", "請先連接 Telegram Bot"],
   ["目标必须是 Telegram 群组或超级群组", "目標必須是 Telegram 群組或超級群組"],
-  ["这个 EdgeChat 群组或 Telegram 群已经绑定", "這個 EdgeChat 群組或 Telegram 群已經綁定"],
+  ["这个 EdgeChat 群组或 Telegram 群已经绑定", "這個 IIEAO·CHAT 群組或 Telegram 群已經綁定"],
   ["Telegram 映射不存在", "Telegram 映射不存在"],
   ["Telegram Bot Token 格式无效", "Telegram Bot Token 格式無效"],
   ["Telegram 文件路径无效", "Telegram 文件路徑無效"],

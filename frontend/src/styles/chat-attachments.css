@@ -28,6 +28,11 @@
 }
 
 .message-attachment__file {
+  display: inline-flex;
+  margin-top: 10px;
+  color: var(--chat-accent);
+  font-weight: 600;
+  max-width: 100%;
   word-break: break-word;
 }
 
@@ -58,7 +63,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  min-width: 240px;
+  min-width: 0;
+  width: 100%;
 }
 
 .voice-message__play {

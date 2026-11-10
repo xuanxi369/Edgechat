@@ -1,4 +1,5 @@
 <script setup>
+import { displaySiteName } from '../brand.js';
 import {
   Activity,
   ArrowRight,
@@ -149,7 +150,7 @@ onMounted(loadOverview);
             <span class="admin-icon-tile"><Globe2 :size="20" aria-hidden="true" /></span>
             <div>
               <span>{{ t('dashboard.site') }}</span>
-              <strong>{{ overview.site?.siteName || 'Edgechat' }}</strong>
+              <strong>{{ displaySiteName(overview.site?.siteName) }}</strong>
             </div>
           </div>
           <div class="admin-status-list__item">

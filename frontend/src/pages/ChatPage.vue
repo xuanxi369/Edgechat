@@ -42,7 +42,6 @@ import { useUserProfile } from '../composables/useUserProfile.ts';
 import { useI18n } from '../i18n.js';
 
 import '../styles/chat.css';
-import '../styles/chat-messages.css';
 import '../styles/chat-attachments.css';
 import '../styles/chat-theme.css';
 import '../styles/voice-call.css';
@@ -644,7 +643,7 @@ watch(
           >
             <Menu :size="22" aria-hidden="true" />
           </button>
-          <h1 class="brand-title">EdgeChat</h1>
+          <h1 class="brand-title">IIEAO·CHAT</h1>
           <div class="sidebar-header-actions">
             <a
               class="header-action header-action--github"
@@ -888,7 +887,7 @@ watch(
         <div class="empty-content">
           <div class="empty-brand">
             <MessageCircle :size="36" :stroke-width="1.5" aria-hidden="true" />
-            <span class="empty-title">EdgeChat</span>
+            <span class="empty-title">IIEAO·CHAT</span>
           </div>
           <p>{{ t('chat.noConversationSelected') }}</p>
           <button type="button" class="empty-start" @click="openAddConversation">
@@ -1013,7 +1012,7 @@ watch(
   display: flex;
   width: 100%;
   height: var(--chat-viewport-height, 100dvh);
-  min-height: 100dvh;
+  min-height: 0;
   overflow: hidden;
   background: var(--site-background, var(--chat-canvas));
   color: var(--chat-ink);
@@ -1055,7 +1054,8 @@ watch(
   align-items: center;
   justify-content: space-between;
   min-height: 88px;
-  padding: 20px 24px 12px;
+  gap: 8px;
+  padding: 20px 16px 12px;
   background: transparent;
 }
 
@@ -1065,11 +1065,13 @@ watch(
 
 .brand-title {
   margin: 0;
-  font-size: 23px;
+  min-width: 0;
+  font-size: 21px;
   font-weight: 700;
   color: var(--chat-ink);
   font-family: var(--chat-font-heading);
   letter-spacing: -0.055em;
+  white-space: nowrap;
 }
 
 .sidebar-header-actions {
@@ -1335,6 +1337,7 @@ watch(
 
 .chat-header {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
@@ -1666,7 +1669,6 @@ watch(
 
   .sidebar-controls { padding: 0 16px 8px; }
   .conversation-search input { font-size: 16px; }
-  .room-management-layer { inset: 64px 0 0; border-radius: 0; }
   .load-more-btn { min-height: 44px; }
 
   .chat-layout--mobile-list .chat-main,
@@ -1798,7 +1800,7 @@ watch(
     width: auto;
     height: auto;
     padding-left: 48px;
-    background: rgba(11, 20, 26, 0.35);
+    background: var(--chat-scrim);
   }
 
   .room-management-sidebar {
@@ -1810,16 +1812,22 @@ watch(
   }
 }
 
-@media (max-width: 380px) {
-  .chat-header__avatar,
-  .chat-header__status {
-    display: none;
-  }
-
+@media (max-width: 600px) {
+  /* 标题和操作分行，长群名、私聊通话与语言入口均保留可用空间。 */
   .chat-header {
-    gap: 4px;
+    display: grid;
+    grid-template-columns: 44px 44px minmax(0, 1fr);
+    gap: 4px 8px;
+    padding-right: max(12px, env(safe-area-inset-right));
   }
+  .chat-header__identity { grid-column: 3; }
+  .chat-header__actions { grid-column: 1 / -1; justify-content: flex-end; gap: 4px; }
+  .chat-header__actions .chat-header__status { margin-right: auto; }
+  .sidebar-list-heading { padding-right: 16px; padding-left: 16px; }
+}
 
+@media (max-width: 380px) {
+  .brand-title { font-size: 19px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

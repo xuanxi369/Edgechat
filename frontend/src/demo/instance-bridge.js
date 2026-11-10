@@ -19,7 +19,7 @@ export function demoInstanceBridge(path, method, body) {
     // 只演示管理员交互，不解析真实凭据，也不对输入中的任何地址发请求。
     bindings.unshift({ id, channelId: channel.id, channelName: channel.name,
       role: creating ? 'inviter' : 'joiner', status: creating ? 'pending' : 'active',
-      peerOrigin: 'https://peer.edgechat.demo', peerChannelName: 'EdgeChat Community', peerInstanceId: 'demo-peer',
+      peerOrigin: 'https://peer.edgechat.demo', peerChannelName: 'IIEAO·CHAT Community', peerInstanceId: 'demo-peer',
       localPaused: false, peerPaused: false, controlPending: false, queued: 0, delivered: 0, discarded: 0, expiresAt });
     return creating ? { id, invitation: JSON.stringify({ demo: true, bindingId: id }), expiresAt } : { id };
   }

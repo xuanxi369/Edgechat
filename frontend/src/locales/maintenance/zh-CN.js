@@ -16,7 +16,7 @@ export default {
   "maintenance.summary.warning": "核心服务正常，部分功能未启用",
   "maintenance.summary.error": "发现需要处理的项目",
   "maintenance.summaryTime": "检查时间：{time} · 耗时 {duration} ms",
-  "maintenance.version": "EdgeChat 版本",
+  "maintenance.version": "IIEAO·CHAT 版本",
   "maintenance.databaseVersion": "数据库版本",
   "maintenance.expected": "代码要求：{version}",
   "maintenance.progress": "已登记 {applied} / {expected} 个迁移",

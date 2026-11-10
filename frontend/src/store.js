@@ -1,4 +1,5 @@
 import { reactive } from 'vue';
+import { APP_NAME, displaySiteName } from './brand.js';
 import {
   getStoredNativeServerOrigin,
   isCapacitorAndroid,
@@ -42,7 +43,7 @@ const state = reactive({
   token: isDemoMode ? runtimeSessionToken : getStoredToken(),
   session: null,
   site: {
-    siteName: 'Edgechat',
+    siteName: APP_NAME,
     siteIconUrl: '',
     colorTheme: 'default'
   }
@@ -168,7 +169,7 @@ function refreshAuthorization() {
 
 function setSite(site) {
   state.site = {
-    siteName: String(site?.siteName || 'Edgechat').trim() || 'Edgechat',
+    siteName: displaySiteName(site?.siteName),
     siteIconUrl: String(site?.siteIconUrl || '').trim(),
     colorTheme: normalizeSiteColorTheme(site?.colorTheme)
   };

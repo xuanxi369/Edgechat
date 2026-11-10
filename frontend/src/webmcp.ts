@@ -65,7 +65,7 @@ const ROOM_ID_SCHEMA = {
 
 function requireSession(getSession: () => EdgeChatSession | null) {
   if (!getSession()) {
-    throw new Error('请先登录 EdgeChat 后再使用站点工具');
+    throw new Error('请先登录 IIEAO·CHAT 后再使用站点工具');
   }
 }
 
@@ -88,7 +88,7 @@ export function createEdgeChatWebMcpTools(
     {
       name: 'edgechat.login',
       description:
-        '使用现有 EdgeChat 登录流程创建当前浏览器会话。账号密码属于敏感信息，仅在用户明确授权后调用。',
+        '使用现有 IIEAO·CHAT 登录流程创建当前浏览器会话。账号密码属于敏感信息，仅在用户明确授权后调用。',
       inputSchema: {
         type: 'object',
         properties: {
@@ -96,13 +96,13 @@ export function createEdgeChatWebMcpTools(
             type: 'string',
             minLength: 1,
             maxLength: 64,
-            description: 'EdgeChat 用户名'
+            description: 'IIEAO·CHAT 用户名'
           },
           password: {
             type: 'string',
             minLength: 1,
             writeOnly: true,
-            description: 'EdgeChat 密码，工具结果不会返回此字段'
+            description: 'IIEAO·CHAT 密码，工具结果不会返回此字段'
           }
         },
         required: ['username', 'password'],
@@ -116,7 +116,7 @@ export function createEdgeChatWebMcpTools(
         });
         const session = getSession();
         if (!session) {
-          throw new Error('EdgeChat 登录未完成');
+          throw new Error('IIEAO·CHAT 登录未完成');
         }
         return {
           session: {
@@ -130,7 +130,7 @@ export function createEdgeChatWebMcpTools(
     },
     {
       name: 'edgechat.list_channels',
-      description: '查询当前登录用户可见的 EdgeChat 公开群组和私有群组。',
+      description: '查询当前登录用户可见的 IIEAO·CHAT 公开群组和私有群组。',
       inputSchema: {
         type: 'object',
         properties: {},
@@ -145,7 +145,7 @@ export function createEdgeChatWebMcpTools(
     },
     {
       name: 'edgechat.read_messages',
-      description: '读取指定 EdgeChat 会话最近的消息，不改变已读状态。',
+      description: '读取指定 IIEAO·CHAT 会话最近的消息，不改变已读状态。',
       inputSchema: {
         type: 'object',
         properties: {
@@ -172,7 +172,7 @@ export function createEdgeChatWebMcpTools(
     },
     {
       name: 'edgechat.send_message',
-      description: '向指定 EdgeChat 会话发送一条纯文字消息。此操作会立即产生外部可见消息。',
+      description: '向指定 IIEAO·CHAT 会话发送一条纯文字消息。此操作会立即产生外部可见消息。',
       inputSchema: {
         type: 'object',
         properties: {
@@ -200,7 +200,7 @@ export function createEdgeChatWebMcpTools(
     },
     {
       name: 'edgechat.open_dm',
-      description: '按准确用户名找到用户，并幂等地找到或创建与该用户的 EdgeChat 私聊。',
+      description: '按准确用户名找到用户，并幂等地找到或创建与该用户的 IIEAO·CHAT 私聊。',
       inputSchema: {
         type: 'object',
         properties: {
@@ -250,7 +250,7 @@ export function registerEdgeChatWebMcp(
     return Promise.resolve(false);
   }
 
-  // WebMCP 只是页面能力增强；注册失败不能改变 EdgeChat 原有启动与通信链路。
+  // WebMCP 只是页面能力增强；注册失败不能改变 IIEAO·CHAT 原有启动与通信链路。
   registrationPromise = (async () => {
     for (const tool of createEdgeChatWebMcpTools()) {
       await modelContext.registerTool(tool);

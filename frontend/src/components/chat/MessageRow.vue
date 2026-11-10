@@ -134,6 +134,7 @@ const time = computed(() => props.msg.createdAt ? formatTime(props.msg.createdAt
 }
 .message-sender-name {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 5px;
   font-size: 12.5px;

@@ -15,7 +15,7 @@ defineProps({
     TG
   </span>
   <span v-else-if="source === 'instance-bridge'" class="sender-instance-badge" :title="instance">
-    EdgeChat · {{ instance.replace(/^https:\/\//, '') }}
+    IIEAO·CHAT · {{ instance.replace(/^https:\/\//, '') }}
   </span>
 </template>
 

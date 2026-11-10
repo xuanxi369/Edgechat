@@ -8,6 +8,7 @@ import VisualEffectsSettings from '../components/settings/VisualEffectsSettings.
 import UiAvatar from '../components/ui/Avatar.vue';
 import LanguageSwitch from '../components/ui/LanguageSwitch.vue';
 import ThemeToggle from '../components/ui/ThemeToggle.vue';
+import { useOverlayLifecycle } from '../composables/useOverlayLifecycle.js';
 import { isCapacitorAndroid, pickNativeFile } from '../capacitor-platform.ts';
 import { useI18n } from '../i18n.js';
 import { BIO_MAX_LENGTH, bioLength, normalizeBio } from '../../../shared/user-profile.ts';
@@ -36,6 +37,7 @@ const uploadingAvatar = ref(false);
 const avatarInputEl = ref(null);
 const showCropper = ref(false);
 const cropperCanvas = ref(null);
+const cropCancel = ref(null);
 const cropZoom = ref(1);
 const cropFile = ref(null);
 const cropImageUrl = ref('');
@@ -47,6 +49,8 @@ const cropOffsetStart = reactive({ x: 0, y: 0 });
 
 const CANVAS_SIZE = 280;
 const CROP_SIZE = 240;
+
+useOverlayLifecycle({ open: showCropper, onClose: cancelCrop, focusTarget: cropCancel });
 
 function clearMessage() {
   info.value = '';
@@ -181,13 +185,15 @@ function onCropPointerDown(event) {
   cropDragStart.y = event.clientY;
   cropOffsetStart.x = cropOffset.x;
   cropOffsetStart.y = cropOffset.y;
+  event.currentTarget.setPointerCapture(event.pointerId);
 }
 
 function onCropPointerMove(event) {
   if (!cropDragging.value) return;
   event.preventDefault();
-  cropOffset.x = cropOffsetStart.x + (event.clientX - cropDragStart.x);
-  cropOffset.y = cropOffsetStart.y + (event.clientY - cropDragStart.y);
+  const bounds = cropperCanvas.value.getBoundingClientRect();
+  cropOffset.x = cropOffsetStart.x + (event.clientX - cropDragStart.x) * CANVAS_SIZE / bounds.width;
+  cropOffset.y = cropOffsetStart.y + (event.clientY - cropDragStart.y) * CANVAS_SIZE / bounds.height;
 }
 
 function onCropPointerUp() {
@@ -438,8 +444,8 @@ async function changePassword() {
 
     <Transition name="modal">
       <div v-if="showCropper" class="crop-modal" @click.self="cancelCrop">
-        <div class="crop-panel">
-          <h3>{{ t('settings.cropAvatar') }}</h3>
+        <div class="crop-panel" role="dialog" aria-modal="true" aria-labelledby="crop-avatar-title">
+          <h3 id="crop-avatar-title">{{ t('settings.cropAvatar') }}</h3>
           <div class="crop-stage">
             <canvas
               ref="cropperCanvas"
@@ -449,7 +455,8 @@ async function changePassword() {
               @pointerdown="onCropPointerDown"
               @pointermove="onCropPointerMove"
               @pointerup="onCropPointerUp"
-              @pointerleave="onCropPointerUp"
+              @pointercancel="onCropPointerUp"
+              @lostpointercapture="onCropPointerUp"
             />
           </div>
           <div class="crop-controls">
@@ -461,11 +468,12 @@ async function changePassword() {
               max="5"
               step="0.05"
               class="crop-zoom"
+              :aria-label="t('settings.zoom')"
             />
           </div>
           <p class="crop-hint">{{ t('settings.cropHint') }}</p>
           <div class="crop-actions">
-            <button type="button" class="crop-cancel" @click="cancelCrop">{{ t('common.cancel') }}</button>
+            <button ref="cropCancel" type="button" class="crop-cancel" @click="cancelCrop">{{ t('common.cancel') }}</button>
             <button type="button" class="crop-confirm" @click="confirmCrop">{{ t('settings.confirmCrop') }}</button>
           </div>
         </div>
@@ -794,6 +802,9 @@ async function changePassword() {
 
 .crop-panel {
   width: min(480px, 100%);
+  max-height: calc(100dvh - 48px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -814,8 +825,9 @@ async function changePassword() {
 }
 
 .crop-stage {
-  width: 280px;
-  height: 280px;
+  width: min(280px, 100%);
+  aspect-ratio: 1;
+  flex-shrink: 0;
   border-radius: 16px;
   overflow: hidden;
   box-shadow:
@@ -825,6 +837,8 @@ async function changePassword() {
 
 .crop-canvas {
   display: block;
+  width: 100%;
+  height: 100%;
   cursor: grab;
   touch-action: none;
 }
@@ -980,11 +994,12 @@ async function changePassword() {
 
 @media (max-width: 640px) {
   .settings-page {
-    padding: 16px;
+    min-height: 100dvh;
+    padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
   }
 
   .settings-container {
-    padding: 24px;
+    padding: 16px;
     gap: 20px;
   }
 
@@ -1007,6 +1022,10 @@ async function changePassword() {
   .avatar-compact {
     width: 100%;
   }
+  .settings-header__left { flex-wrap: wrap; }
+  .crop-modal { padding: 12px; background: var(--chat-scrim); backdrop-filter: none; }
+  .crop-panel { max-height: calc(100dvh - 24px); overflow-y: auto; padding: 20px 16px; gap: 16px; }
+  .crop-actions { flex-wrap: wrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {

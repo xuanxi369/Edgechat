@@ -86,26 +86,16 @@ test("移动端主要操作保留四十四像素触控区域且文字发送按�
 	assert.match(messageComposer, /font-size:\s*16px;/);
 });
 
-test("窄屏演示导航避开输入区和聊天覆盖层", () => {
-	assert.match(
-		demoNavigator,
-		/bottom:\s*calc\(116px \+ env\(safe-area-inset-bottom\)\);/,
-	);
-	for (const selector of [
-		"body:has(.room-management-layer) .demo-navigator",
-		"body:has(.composer-rich-editor) .demo-navigator",
-		"body:has(.composer-attachment) .demo-navigator",
-		"body:has(.composer-reply) .demo-navigator",
-	]) {
-		assert.ok(demoNavigator.includes(selector), `演示导航缺少避让规则：${selector}`);
-	}
+test("窄屏演示导航独立占一行，不覆盖输入区", () => {
+  assert.match(demoNavigator, /body:has\(\.demo-navigator\) \.chat-layout\s*{[^}]*top: calc\(var\(--chat-viewport-offset-top, 0px\) \+ 56px\);[^}]*height: calc\(var\(--chat-viewport-height, 100dvh\) - 56px\);/s);
+  assert.doesNotMatch(demoNavigator, /z-index:\s*10000/);
 });
 
 test("演示 Star 入口保留安全外链、无障碍标签与窄屏触控区域", () => {
 	assert.match(demoNavigator, /class="demo-navigator__star"[^>]*href="https:\/\/github\.com\/aozorae\/Edgechat"[^>]*target="_blank"[^>]*rel="noopener noreferrer"[^>]*:title="t\('demo\.star'\)"[^>]*:aria-label="t\('demo\.star'\)"/s);
 	assert.match(demoNavigator, /<Star[^>]*aria-hidden="true"/);
 	assert.match(getStyleRule(demoNavigator, ".demo-navigator__star:focus-visible"), /outline:\s*2px solid/);
-	const mobileStyles = demoNavigator.slice(demoNavigator.indexOf("@media (max-width: 640px)"));
+	const mobileStyles = demoNavigator.slice(demoNavigator.indexOf("@media (max-width: 960px)"));
 	assert.match(getStyleRule(mobileStyles, ".demo-navigator__star"), /width:\s*44px;\s*height:\s*44px;/);
 	assert.match(getStyleRule(mobileStyles, ".demo-navigator__star span"), /display:\s*none;/);
 });

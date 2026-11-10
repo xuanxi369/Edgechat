@@ -76,145 +76,89 @@ function resetDemo() {
   position: fixed;
   top: 68px;
   right: 12px;
-  z-index: 10000;
+  z-index: 35;
   display: flex;
   align-items: center;
   gap: 7px;
-  min-height: 38px;
-  padding: 5px 6px 5px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 8px;
-  background: rgba(248, 251, 254, 0.88);
-  box-shadow: 0 8px 24px rgba(35, 54, 76, 0.16);
-  backdrop-filter: blur(18px) saturate(150%);
-  color: #23405f;
+  min-height: 44px;
+  padding: 4px 6px 4px 10px;
+  border: 1px solid var(--chat-line);
+  border-radius: 12px;
+  background: var(--chat-paper);
+  box-shadow: var(--chat-shadow);
+  color: var(--chat-muted);
 }
-
-.demo-navigator__badge {
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
+.demo-navigator__badge { font-size: 12px; font-weight: 600; white-space: nowrap; }
 .demo-navigator select {
   width: 138px;
-  height: 28px;
-  border: 1px solid rgba(70, 105, 139, 0.22);
-  border-radius: 6px;
-  background: rgba(255, 255, 255, 0.82);
-  color: #203b57;
+  height: 36px;
+  border: 1px solid var(--chat-line);
+  border-radius: 8px;
+  background: var(--chat-paper);
+  color: var(--chat-ink);
   font: inherit;
   font-size: 12px;
-  padding: 0 24px 0 8px;
+  padding: 0 8px;
 }
-
-.demo-navigator button {
-  display: grid;
-  width: 28px;
-  height: 28px;
-  place-items: center;
-  border: 0;
-  border-radius: 6px;
-  background: transparent;
-  color: #426584;
-  cursor: pointer;
-}
-
-.demo-navigator button:hover,
-.demo-navigator button:focus-visible {
-  background: rgba(80, 126, 167, 0.12);
-  outline: none;
-}
-
+.demo-navigator button { display: grid; width: 36px; height: 36px; place-items: center; border: 0; border-radius: 8px; background: transparent; color: var(--chat-muted); cursor: pointer; }
+.demo-navigator button:hover { background: var(--chat-hover); }
+.demo-navigator button:focus-visible, .demo-navigator select:focus-visible { outline: 2px solid var(--chat-accent); outline-offset: 2px; }
 .demo-navigator__star {
   display: inline-flex;
-  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  height: 28px;
+  min-height: 36px;
   padding: 0 9px;
-  border: 1px solid #d5b65c;
+  border: 1px solid var(--chat-line);
   border-radius: 8px;
-  background: #fff2c4;
-  color: #73500c;
+  background: var(--chat-selected);
+  color: var(--chat-accent);
   font-size: 12px;
-  font-weight: 700;
-  line-height: 1;
+  font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
-  cursor: pointer;
 }
-
-.demo-navigator__star:hover {
-  background: #ffe49a;
-  border-color: #b9912e;
-}
-
-.demo-navigator__star:active {
-  background: #f5d47c;
-}
-
-.demo-navigator__star:focus-visible {
-  outline: 2px solid #73500c;
-  outline-offset: 2px;
-}
-
-@media (max-width: 640px) {
+.demo-navigator__star:hover { background: var(--chat-pressed); }
+.demo-navigator__star:focus-visible { outline: 2px solid var(--chat-accent); outline-offset: 2px; }
+@media (max-width: 960px) {
   .demo-navigator {
-    top: 68px;
-    right: 8px;
+    top: var(--chat-viewport-offset-top, 0px);
+    right: 0;
+    left: 0;
+    height: 56px;
+    min-height: 56px;
+    gap: 8px;
+    padding: 6px max(12px, env(safe-area-inset-right)) 6px max(12px, env(safe-area-inset-left));
+    border: 0;
+    border-bottom: 1px solid var(--chat-line);
+    border-radius: 0;
+    box-shadow: none;
   }
-
-  .demo-navigator__badge {
-    display: none;
-  }
-
-  .demo-navigator select {
-    width: 124px;
-  }
-
-  .demo-navigator__star {
-    width: 44px;
-    height: 44px;
-    padding: 0;
-  }
-
-  .demo-navigator__star span {
-    display: none;
-  }
-
-  .demo-navigator--admin,
-  .demo-navigator--contacts {
-    top: auto;
-    bottom: 8px;
-  }
+  .demo-navigator__badge { display: none; }
+  .demo-navigator select { flex: 1; width: 0; min-width: 0; height: 44px; font-size: 16px; }
+  .demo-navigator button { flex-shrink: 0; width: 44px; height: 44px; }
+  .demo-navigator__star { width: 44px; height: 44px; flex-shrink: 0; padding: 0; }
+  .demo-navigator__star span { display: none; }
 }
 </style>
 
 <style>
-@media (max-width: 640px) {
-  /* 聊天页出现置顶条时把演示导航移到输入区上方，避免遮挡真实功能文案。 */
-  body:has(.pinned-message-bar) .demo-navigator:not(.demo-navigator--admin) {
-    top: auto;
-    bottom: calc(116px + env(safe-area-inset-bottom));
+/* The toolbar stays below modal layers, including layers inside the fixed chat workspace. */
+body:has(:is(.room-management-layer, .room-dialog-overlay, .add-conversation-overlay, .public-group-overlay, .user-profile-overlay, .mobile-navigation-overlay, .crop-modal)) .demo-navigator {
+  visibility: hidden;
+  pointer-events: none;
+}
+@media (max-width: 960px) {
+  /* Reserve a dedicated toolbar row in the demo instead of covering messages or the composer. */
+  body:has(.demo-navigator) .chat-layout {
+    top: calc(var(--chat-viewport-offset-top, 0px) + 56px);
+    height: calc(var(--chat-viewport-height, 100dvh) - 56px);
   }
-
-	/* 窄屏演示导航悬浮在输入区上方，因此给消息流留出同等空间，保证最新回复不会被遮住。 */
-		body:has(.pinned-message-bar) .chat-messages {
-			padding-bottom: calc(72px + env(safe-area-inset-bottom));
-		}
-
-  body:has(.contacts-page) .contacts-page__body {
-    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  body:has(.demo-navigator) .chat-layout--calling {
+    top: calc(var(--chat-viewport-offset-top, 0px) + 120px);
+    height: calc(var(--chat-viewport-height, 100dvh) - 120px);
   }
-
-  /* 成员管理使用整屏覆盖层，演示导航不能浮在其上方抢占触控区域。 */
-  body:has(.room-management-layer) .demo-navigator,
-  body:has(.composer-rich-editor) .demo-navigator,
-  body:has(.composer-attachment) .demo-navigator,
-  body:has(.composer-reply) .demo-navigator {
-    display: none;
-  }
+  body:has(.demo-navigator) :is(.login-page, .settings-page) { padding-top: 76px; }
 }
 </style>

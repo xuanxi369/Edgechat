@@ -36,7 +36,7 @@ test('demo backend exposes chat, contacts, admin, storage and Telegram fixture d
     requestDemo('/admin/telegram')
   ]);
 
-  assert.equal(site.site.siteName, 'EdgeChat Demo');
+  assert.equal(site.site.siteName, 'IIEAO·CHAT Demo');
   assert.equal(session.session.isAdmin, true);
   assert.equal(bootstrap.channels.some((channel) => channel.isGeneral), true);
 	assert.equal(bootstrap.dms.length, 1);

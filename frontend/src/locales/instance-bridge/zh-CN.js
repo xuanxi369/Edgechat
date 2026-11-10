@@ -1,6 +1,6 @@
 export default {
   "bridge.title": "跨实例群组绑定",
-  "bridge.description": "将两个独立 EdgeChat 实例的群组双向同步连接起来。",
+  "bridge.description": "将两个独立 IIEAO·CHAT 实例的群组双向同步连接起来。",
   "bridge.scope": "仅同步本站原创的纯文字新消息；不含附件，不同步引用、编辑或撤回。",
   "bridge.createInvite": "创建邀请",
   "bridge.acceptInvite": "接受邀请",
@@ -57,7 +57,7 @@ export default {
   "bridge.error.group_unavailable": "所选群组不可用或无权管理",
   "bridge.error.confirmation_unavailable": "当前绑定无法确认，请刷新状态",
   "bridge.error.origin_mismatch": "本站公开 HTTPS 地址与已保存的实例地址不一致",
-  "bridge.error.same_instance": "不能绑定同一个 EdgeChat 实例",
+  "bridge.error.same_instance": "不能绑定同一个 IIEAO·CHAT 实例",
   "bridge.error.admin_required": "需要管理员权限",
   "bridge.error.wrong_binding": "邀请与此绑定不匹配",
   "bridge.error.wrong_target": "目标群组不匹配",

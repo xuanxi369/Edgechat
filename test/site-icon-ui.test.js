@@ -5,6 +5,7 @@ import { runInNewContext } from 'node:vm';
 import { compileScript, parse } from '@vue/compiler-sfc';
 import { computed, reactive, ref } from 'vue';
 import { applySiteMetadata } from '../frontend/src/site-metadata.js';
+import { APP_NAME, displaySiteName } from '../frontend/src/brand.js';
 
 function iconDocument() {
   const links = [];
@@ -48,7 +49,7 @@ test('真实 HTML 中所有浏览器与触屏图标同步切换，清除后恢�
       }
     }
     applySiteMetadata({ siteIconUrl: '' });
-    assert.equal(document.title, 'Edgechat');
+    assert.equal(document.title, 'IIEAO·CHAT');
     assert.deepEqual(document.links.map(link => link.attributes), defaults);
   } finally { globalThis.document = previous; }
 });
@@ -75,7 +76,7 @@ const setupSource = scriptSetupAst.filter(node => node.type !== 'ImportDeclarati
 function appearancePage(overrides = {}) {
   const saved = [];
   const state = runInNewContext(`${setupSource}\n({ siteForm, busy, iconPreviewUrl, uploadSiteIcon, saveSiteSettings, loadSiteSettings });`, {
-    computed, reactive, ref, onMounted() {},
+    computed, reactive, ref, APP_NAME, displaySiteName, onMounted() {},
     resolveServerAssetUrl: value => value,
     store: { setSite() {} },
     api: {

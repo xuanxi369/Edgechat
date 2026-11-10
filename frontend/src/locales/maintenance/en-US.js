@@ -16,7 +16,7 @@ export default {
   "maintenance.summary.warning": "Core services are healthy; some features are disabled",
   "maintenance.summary.error": "Some items need attention",
   "maintenance.summaryTime": "Checked: {time} · Took {duration} ms",
-  "maintenance.version": "EdgeChat version",
+  "maintenance.version": "IIEAO·CHAT version",
   "maintenance.databaseVersion": "Database version",
   "maintenance.expected": "Required by code: {version}",
   "maintenance.progress": "{applied} / {expected} migrations recorded",

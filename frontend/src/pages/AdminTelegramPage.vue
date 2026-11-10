@@ -161,7 +161,7 @@ onMounted(loadState);
         <div class="admin-table-wrap">
           <table class="list-table telegram-mapping-table">
             <thead>
-              <tr><th>EdgeChat</th><th>Telegram</th><th>{{ t('telegram.sync') }}</th><th>{{ t('telegram.actions') }}</th></tr>
+              <tr><th>IIEAO·CHAT</th><th>Telegram</th><th>{{ t('telegram.sync') }}</th><th>{{ t('telegram.actions') }}</th></tr>
             </thead>
             <tbody>
               <tr v-if="loading && !state.mappings.length"><td colspan="4" class="muted">{{ t('telegram.loadingMappings') }}</td></tr>

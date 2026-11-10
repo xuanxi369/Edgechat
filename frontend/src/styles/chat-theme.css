@@ -12,6 +12,7 @@
   --chat-subtle: #72736f;
   --chat-line: #e6e6e2;
   --chat-accent: #625582;
+  --chat-accent-rgb: 98, 85, 130;
   --chat-accent-hover: #50446e;
   --chat-accent-pressed: #413659;
   --chat-danger: oklch(49% 0.17 27);
@@ -47,6 +48,7 @@
   --chat-subtle: #aaaaa4;
   --chat-line: #373838;
   --chat-accent: #c9b9eb;
+  --chat-accent-rgb: 201, 185, 235;
   --chat-accent-hover: #dfd0fa;
   --chat-accent-pressed: #eadffd;
   --chat-danger: #fa9b92;

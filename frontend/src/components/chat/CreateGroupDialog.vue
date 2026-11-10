@@ -130,7 +130,8 @@ useOverlayLifecycle({
 .room-dialog__members { margin-top: 20px; }
 .room-dialog__members > label { display: block; margin-bottom: 8px; font-size: 13px; color: var(--chat-muted); }
 .room-dialog__member-list { display: flex; flex-wrap: wrap; gap: 8px; max-height: 180px; overflow-y: auto; }
-.room-dialog__member { display: flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--chat-line); border-radius: 20px; background: var(--chat-paper); cursor: pointer; touch-action: manipulation; }
+.room-dialog__member { display: flex; align-items: center; gap: 8px; max-width: 100%; min-height: 44px; padding: 8px 12px; border: 1px solid var(--chat-line); border-radius: 20px; background: var(--chat-paper); cursor: pointer; touch-action: manipulation; }
+.room-dialog__member span { min-width: 0; overflow-wrap: anywhere; }
 .room-dialog__member--selected { border-color: var(--site-brand, #008069); background: var(--site-selected, #e8f0fe); }
 .room-dialog__actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
 .room-dialog__error { margin: 16px 0 0; color: var(--chat-danger); font-size: 13px; overflow-wrap: anywhere; }

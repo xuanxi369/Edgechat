@@ -263,7 +263,7 @@ export function createDemoFixtures(locale = getLocale()) {
         attachment: {
           key: '/logo.svg',
           url: '/logo.svg',
-          name: 'edgechat-logo.svg',
+          name: 'iieao-chat-logo.svg',
           type: 'image/svg+xml',
           size: 8420
         }
@@ -376,7 +376,7 @@ export function createDemoFixtures(locale = getLocale()) {
   };
 
   return {
-    site: { siteName: 'EdgeChat Demo', siteIconUrl: '/logo.svg', colorTheme: 'default' },
+    site: { siteName: 'IIEAO·CHAT Demo', siteIconUrl: '/logo.svg', colorTheme: 'default' },
     session: {
       token: 'edgechat-demo-session',
       userId: 1,

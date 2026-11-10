@@ -84,4 +84,12 @@
   .login-page { grid-template-columns: 1fr; padding: 24px; }
   .login-art { display: none; }
   .login-container { padding: 80px 0 40px; }
+  .login-input { font-size: 16px; }
+}
+@media (max-width: 480px) {
+  .login-page { padding: max(20px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
+  .login-page--register { padding-top: 88px; }
+  .login-page--register .login-container { padding: 24px 20px; }
+  .login-container { min-width: 0; }
+  .brand-name { overflow-wrap: anywhere; }
 }

@@ -215,6 +215,6 @@ test('打开私聊按准确用户名解析目标，并要求当前存在登录�
   const signedOutTools = toolMap(createApi(), { getSession: () => null });
   await assert.rejects(
     signedOutTools.get('edgechat.list_channels').execute({}),
-    /请先登录 EdgeChat/
+    /请先登录 IIEAO·CHAT/
   );
 });
