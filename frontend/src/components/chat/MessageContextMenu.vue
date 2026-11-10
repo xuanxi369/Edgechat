@@ -117,10 +117,10 @@ onBeforeUnmount(() => {
   z-index: 1000;
   width: 176px;
   padding: 8px;
-  border: 1px solid rgba(11, 20, 26, 0.08);
-  border-radius: 6px;
-  background: #ffffff;
-  box-shadow: 0 2px 5px rgba(11, 20, 26, 0.16), 0 6px 18px rgba(11, 20, 26, 0.12);
+  border: 1px solid var(--chat-line);
+  border-radius: 16px;
+  background: var(--chat-paper);
+  box-shadow: var(--chat-shadow-panel);
 }
 
 .message-context-menu button {
@@ -128,12 +128,12 @@ onBeforeUnmount(() => {
   align-items: center;
   gap: 12px;
   width: 100%;
-  min-height: 40px;
+  min-height: 44px;
   padding: 0 10px;
   border: 0;
-  border-radius: 4px;
+  border-radius: 10px;
   background: transparent;
-  color: #111b21;
+  color: var(--chat-ink);
   font: inherit;
   font-size: 14px;
   text-align: left;
@@ -141,12 +141,12 @@ onBeforeUnmount(() => {
 }
 
 .message-context-menu button.message-context-menu__danger {
-  color: #c62828;
+  color: var(--chat-danger);
 }
 
 .message-context-menu button:hover,
 .message-context-menu button:active {
-  background: #f5f6f6;
+  background: var(--chat-hover);
 }
 
 .message-context-menu button:focus-visible {
@@ -156,14 +156,14 @@ onBeforeUnmount(() => {
 
 .message-menu-enter-active,
 .message-menu-leave-active {
-  transition: opacity 100ms ease, transform 100ms ease;
+  transition: opacity var(--motion-reveal), transform var(--motion-reveal);
   transform-origin: top left;
 }
 
 .message-menu-enter-from,
 .message-menu-leave-to {
   opacity: 0;
-  transform: scale(0.96);
+  transform: translateY(6px) scale(0.96);
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -99,8 +99,8 @@ useOverlayLifecycle({
   max-height: calc(100dvh - 32px);
   overflow-y: auto;
   padding: 32px 28px 24px;
-  border-radius: 16px;
-  background: #ffffff;
+  border-radius: 24px;
+  background: var(--chat-paper);
   box-shadow: 0 20px 60px rgba(11, 20, 26, 0.18);
   text-align: center;
 }
@@ -118,13 +118,13 @@ useOverlayLifecycle({
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: #667781;
+  color: var(--chat-muted);
   cursor: pointer;
 }
 
 .public-group-dialog__close:hover {
-  background: #f0f2f5;
-  color: #111b21;
+  background: var(--chat-hover);
+  color: var(--chat-ink);
 }
 
 .public-group-dialog__identity {
@@ -147,13 +147,13 @@ useOverlayLifecycle({
   max-width: 100%;
   margin: 0;
   overflow-wrap: anywhere;
-  color: #111b21;
+  color: var(--chat-ink);
   font-size: 20px;
 }
 
 .public-group-dialog__identity p {
   margin: 0;
-  color: #667781;
+  color: var(--chat-muted);
   font-size: 13px;
   line-height: 1.55;
 }
@@ -164,8 +164,8 @@ useOverlayLifecycle({
   width: 100%;
   margin: 24px 0 0;
   padding: 16px 0;
-  border-top: 1px solid #eef1f3;
-  border-bottom: 1px solid #eef1f3;
+  border-top: 1px solid var(--chat-line);
+  border-bottom: 1px solid var(--chat-line);
 }
 
 .public-group-dialog__facts div {
@@ -175,18 +175,18 @@ useOverlayLifecycle({
 }
 
 .public-group-dialog__facts div + div {
-  border-left: 1px solid #eef1f3;
+  border-left: 1px solid var(--chat-line);
 }
 
 .public-group-dialog__facts dt {
-  color: #8696a0;
+  color: var(--chat-subtle);
   font-size: 12px;
 }
 
 .public-group-dialog__facts dd {
   margin: 0;
   overflow: hidden;
-  color: #111b21;
+  color: var(--chat-ink);
   font-size: 14px;
   font-weight: 600;
   text-overflow: ellipsis;
@@ -214,15 +214,15 @@ useOverlayLifecycle({
 }
 
 .public-group-dialog__secondary {
-  border: 1px solid #dce2e5;
-  background: #ffffff;
-  color: #111b21;
+  border: 1px solid var(--chat-line);
+  background: var(--chat-paper);
+  color: var(--chat-ink);
 }
 
 .public-group-dialog__primary {
   border: 1px solid var(--site-action-border, #008069);
   background: var(--site-action-bg, #008069);
-  color: var(--site-on-action, #ffffff);
+  color: var(--site-on-action, var(--chat-paper));
 }
 
 .public-group-dialog button:disabled {
@@ -258,7 +258,7 @@ useOverlayLifecycle({
     width: 100%;
     max-height: calc(100dvh - env(safe-area-inset-top));
     padding: 28px 20px max(20px, env(safe-area-inset-bottom));
-    border-radius: 16px 16px 0 0;
+    border-radius: 24px 24px 0 0;
   }
 }
 

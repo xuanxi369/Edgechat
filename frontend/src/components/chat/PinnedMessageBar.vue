@@ -50,8 +50,8 @@ const preview = computed(() => {
   display: flex;
   align-items: stretch;
   min-height: 52px;
-  border-bottom: 1px solid #e9edef;
-  background: #ffffff;
+  border-bottom: 1px solid var(--chat-line);
+  background: var(--chat-paper);
   box-shadow: 0 1px 2px rgba(11, 20, 26, 0.06);
 }
 
@@ -74,7 +74,7 @@ const preview = computed(() => {
 .pinned-message-bar__content:active,
 .pinned-message-bar__unpin:hover,
 .pinned-message-bar__unpin:active {
-  background: #f5f7fa;
+  background: var(--chat-hover);
 }
 
 .pinned-message-bar__copy {
@@ -97,7 +97,7 @@ const preview = computed(() => {
 }
 
 .pinned-message-bar__copy span {
-  color: #54656f;
+  color: var(--chat-muted);
   font-size: 12px;
 }
 
@@ -111,7 +111,7 @@ const preview = computed(() => {
   padding: 0;
   border: 0;
   background: transparent;
-  color: #54656f;
+  color: var(--chat-muted);
   cursor: pointer;
   touch-action: manipulation;
 }

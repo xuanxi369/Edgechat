@@ -69,7 +69,7 @@ test("通讯录页面只渲染头像和一个名字并复用资料卡与工作�
 	assert.match(chat, /watch\(isContactsView,[\s\S]*pauseRoom\(\)[\s\S]*activateRoom\(\)/);
 	assert.match(chat, /v-if="!isContactsView" class="chat-main"/);
 	assert.match(chat, /v-if="contactsVisited"[\s\S]*v-show="isContactsView"/);
-	assert.match(page, /:aria-pressed="view === 'blocked'"/);
+	assert.match(page, /<SegmentedControl[^>]*:model-value="view"[^>]*value: 'blocked'[^>]*:disabled="savingUserId !== null"[^>]*@update:model-value="selectView"/);
 	assert.match(page, /@click="unblockContact\(user.id\)"/);
 	assert.match(chat, /@unblocked="applyBlockState\(\$event, false\)"/);
 });

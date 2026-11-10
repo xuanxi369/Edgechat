@@ -585,7 +585,7 @@ onBeforeUnmount(() => {
 	min-width: 0;
 	margin: auto 0 0;
 	padding: 16px 24px 20px;
-	border-top: 1px solid var(--chat-line);
+	border-top: 0;
 	border-radius: 0;
 	background: var(--chat-canvas);
 }
@@ -747,14 +747,16 @@ onBeforeUnmount(() => {
 	min-width: 0;
 	padding: 8px;
 	border: 1px solid var(--chat-line);
-	border-radius: 24px;
+	border-radius: 22px;
 	background: var(--chat-paper);
 	box-shadow: var(--chat-shadow);
+	transition: box-shadow var(--motion-fluid), border-color var(--motion-press);
 }
 
 /* 整体焦点边框让输入位置清楚可见，不改变面板大小。 */
 .composer-row:focus-within {
 	border-color: var(--chat-accent);
+	box-shadow: 0 0 0 4px color-mix(in srgb, var(--chat-accent) 8%, transparent), var(--chat-shadow);
 }
 
 .composer-rich-editor {
@@ -887,7 +889,7 @@ onBeforeUnmount(() => {
 
 .composer-btn {
 	color: var(--chat-muted);
-	transition: background 150ms, color 150ms;
+	transition: background var(--motion-press), color var(--motion-press), transform var(--motion-press);
 }
 
 .composer-btn--active {
@@ -912,12 +914,17 @@ onBeforeUnmount(() => {
 	font-size: 14px;
 	font-weight: 600;
 	white-space: nowrap;
-	transition: background 150ms;
+	transition: background var(--motion-press), transform var(--motion-press), box-shadow var(--motion-press);
 }
 
 .composer-send:hover:not(:disabled) {
 	background: var(--site-action-hover, var(--chat-accent-hover));
+	box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
 }
+
+.composer-send svg { transition: transform var(--motion-fluid); }
+.composer-send:hover:not(:disabled) svg { transform: translate(2px, -2px); }
+.composer-send:active:not(:disabled), .composer-btn:active:not(:disabled) { transform: scale(0.94); }
 
 .composer-btn:active:not(:disabled) {
 	background: rgba(0, 0, 0, 0.08);

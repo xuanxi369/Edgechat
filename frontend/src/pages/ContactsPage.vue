@@ -4,6 +4,7 @@ import { onBeforeUnmount, watch } from "vue";
 import type { UserSummary } from "../../../shared/user-profile.ts";
 import UiAvatar from "../components/ui/Avatar.vue";
 import UiButton from "../components/ui/Button.vue";
+import SegmentedControl from "../components/ui/SegmentedControl.vue";
 import { useContacts } from "../composables/useContacts.ts";
 import { t } from "../i18n.js";
 
@@ -32,10 +33,7 @@ async function unblockContact(userId: number) {
         </button>
         <h1>{{ t('contacts.title') }}</h1>
       </div>
-      <div class="contacts-page__filters" role="group" :aria-label="t('contacts.title')">
-        <button type="button" :aria-pressed="view === 'all'" :disabled="savingUserId !== null" @click="selectView('all')">{{ t('contacts.all') }}</button>
-        <button type="button" :aria-pressed="view === 'blocked'" :disabled="savingUserId !== null" @click="selectView('blocked')">{{ t('contacts.blocked') }}</button>
-      </div>
+      <SegmentedControl class="contacts-page__filters" :model-value="view" :options="[{ value: 'all', label: t('contacts.all') }, { value: 'blocked', label: t('contacts.blocked') }]" :label="t('contacts.title')" :disabled="savingUserId !== null" @update:model-value="selectView" />
       <label class="contacts-page__search">
         <Search :size="18" aria-hidden="true" />
         <span class="sr-only">{{ t('contacts.search') }}</span>
@@ -98,6 +96,9 @@ async function unblockContact(userId: number) {
   overflow: hidden;
   background: var(--chat-paper);
   color: var(--chat-ink);
+  margin: 12px 12px 12px 0;
+  border: 1px solid var(--chat-line);
+  border-radius: 24px;
 }
 
 .contacts-page__header {
@@ -149,16 +150,13 @@ async function unblockContact(userId: number) {
   padding: 8px clamp(12px, 5vw, 64px) calc(24px + env(safe-area-inset-bottom));
 }
 
-.contacts-page__list { margin: 0; padding: 0; list-style: none; }
-.contacts-page__list li { display: flex; align-items: center; gap: 8px; }
-.contacts-page__list li + li { border-top: 1px solid var(--chat-hover); }
-.contacts-page__filters { display: flex; gap: 8px; }
-.contacts-page__filters button { min-height: 44px; padding: 0 16px; border: 1px solid var(--chat-line); border-radius: 6px; background: transparent; color: var(--chat-muted); font: inherit; cursor: pointer; }
-.contacts-page__filters button[aria-pressed="true"] { border-color: var(--chat-accent); background: var(--chat-selected); color: var(--chat-accent); }
-.contacts-page__filters button:hover, .contacts-page__unblock:hover { background: var(--chat-hover); }
-.contacts-page__filters button:focus-visible, .contacts-page__unblock:focus-visible { outline: 2px solid var(--chat-accent); outline-offset: 2px; }
+.contacts-page__list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.contacts-page__list li { display: flex; align-items: center; gap: 8px; padding: 0 8px; border: 1px solid var(--chat-line); border-radius: 18px; }
+.contacts-page__filters { width: min(100%, 320px); }
+.contacts-page__unblock:hover { background: var(--chat-hover); }
+.contacts-page__unblock:focus-visible { outline: 2px solid var(--chat-accent); outline-offset: 2px; }
 .contacts-page__unblock { display: inline-flex; flex: 0 0 auto; min-height: 44px; align-items: center; justify-content: center; gap: 6px; padding: 0 10px; border: 0; border-radius: 6px; background: transparent; color: var(--chat-accent); font: inherit; font-size: 14px; cursor: pointer; white-space: nowrap; }
-.contacts-page__filters button:disabled, .contacts-page__unblock:disabled { opacity: 0.6; cursor: wait; }
+.contacts-page__unblock:disabled { opacity: 0.6; cursor: wait; }
 .contacts-page__error { color: var(--chat-danger); font-size: 14px; }
 
 .contacts-page__row {
@@ -177,6 +175,7 @@ async function unblockContact(userId: number) {
   cursor: pointer;
   text-align: left;
   touch-action: manipulation;
+  transition: background var(--motion-press), transform var(--motion-press);
 }
 
 .contacts-page__row:hover { background: var(--chat-hover); }
@@ -207,6 +206,7 @@ async function unblockContact(userId: number) {
     padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 12px max(12px, env(safe-area-inset-left));
   }
   .contacts-page__menu { display: grid; }
+  .contacts-page { margin: 0; border: 0; border-radius: 0; }
   .contacts-page__title-row h1 { font-size: 21px; }
   .contacts-page__search { width: 100%; }
   .contacts-page__body { width: 100%; padding-right: max(8px, env(safe-area-inset-right)); padding-left: max(8px, env(safe-area-inset-left)); scrollbar-gutter: auto; }

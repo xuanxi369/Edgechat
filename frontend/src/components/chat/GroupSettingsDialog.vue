@@ -84,19 +84,19 @@ async function openAvatarPicker() {
     max(16px, env(safe-area-inset-right))
     max(16px, env(safe-area-inset-bottom))
     max(16px, env(safe-area-inset-left));
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--chat-scrim);
 }
-.room-dialog { width: min(420px, 100%); max-height: calc(100dvh - 32px); overflow-y: auto; padding: 24px; border-radius: 16px; background: #fff; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); }
-.room-dialog h2 { margin: 0 0 20px; font-size: 18px; color: #111b21; }
+.room-dialog { width: min(420px, 100%); max-height: calc(100dvh - 32px); overflow-y: auto; padding: 24px; border-radius: 24px; background: var(--chat-paper); box-shadow: var(--chat-shadow-panel); }
+.room-dialog h2 { margin: 0 0 20px; font-size: 18px; color: var(--chat-ink); }
 .room-dialog__avatar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
 .room-dialog__file { display: none; }
-.room-dialog__error { margin: -12px 0 16px; color: #b42318; font-size: 13px; }
-.room-dialog__field { display: grid; gap: 8px; color: #6b7c93; font-size: 13px; }
-.room-dialog__input { width: 100%; min-height: 44px; padding: 10px 14px; border: 1px solid #e8ecf0; border-radius: 8px; background: #f9fafb; font-size: 16px; }
+.room-dialog__error { margin: -12px 0 16px; color: var(--chat-danger); font-size: 13px; }
+.room-dialog__field { display: grid; gap: 8px; color: var(--chat-muted); font-size: 13px; }
+.room-dialog__input { width: 100%; min-height: 44px; padding: 10px 14px; border: 1px solid var(--chat-line); border-radius: 8px; background: var(--chat-canvas); font-size: 16px; }
 .room-dialog__actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 24px; }
 .room-dialog__secondary, .room-dialog__primary { min-height: 44px; padding: 10px 20px; border-radius: 8px; cursor: pointer; touch-action: manipulation; }
-.room-dialog__secondary { border: 1px solid #e8ecf0; background: #fff; }
-.room-dialog__primary { border: 0; background: var(--site-action-bg, #008069); color: var(--site-on-action, #fff); }
+.room-dialog__secondary { border: 1px solid var(--chat-line); background: var(--chat-paper); }
+.room-dialog__primary { border: 0; background: var(--site-action-bg, #008069); color: var(--site-on-action, var(--chat-paper)); }
 .room-dialog__primary:disabled, .room-dialog__secondary:disabled { cursor: not-allowed; opacity: 0.55; }
 .modal-fade-enter-active { transition: opacity 200ms; }
 .modal-fade-leave-active { transition: opacity 150ms; }
@@ -112,7 +112,7 @@ async function openAvatarPicker() {
     width: 100%;
     max-height: calc(100dvh - env(safe-area-inset-top));
     padding: 20px 16px max(16px, env(safe-area-inset-bottom));
-    border-radius: 16px 16px 0 0;
+    border-radius: 24px 24px 0 0;
   }
 
   .room-dialog__avatar-row {

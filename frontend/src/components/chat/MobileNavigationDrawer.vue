@@ -106,7 +106,7 @@ useOverlayLifecycle({
   overflow-y: auto;
   overscroll-behavior: contain;
   padding: max(18px, env(safe-area-inset-top)) 12px max(18px, env(safe-area-inset-bottom));
-  background: #ffffff;
+  background: var(--chat-paper);
   box-shadow: 12px 0 32px rgba(11, 20, 26, 0.2);
   outline: none;
   touch-action: pan-y;
@@ -118,7 +118,7 @@ useOverlayLifecycle({
   align-items: center;
   gap: 12px;
   padding: 4px 4px 18px;
-  border-bottom: 1px solid #e9edef;
+  border-bottom: 1px solid var(--chat-line);
 }
 
 .mobile-navigation-drawer__identity {
@@ -135,12 +135,12 @@ useOverlayLifecycle({
 }
 
 .mobile-navigation-drawer__identity strong {
-  color: #111b21;
+  color: var(--chat-ink);
   font-size: 15px;
 }
 
 .mobile-navigation-drawer__identity span {
-  color: #667781;
+  color: var(--chat-muted);
   font-size: 13px;
 }
 
@@ -154,7 +154,7 @@ useOverlayLifecycle({
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: #54656f;
+  color: var(--chat-muted);
 }
 
 .mobile-navigation-drawer__actions {
@@ -174,7 +174,7 @@ useOverlayLifecycle({
   border: 0;
   border-radius: 8px;
   background: transparent;
-  color: #111b21;
+  color: var(--chat-ink);
   text-align: left;
   text-decoration: none;
   touch-action: manipulation;
@@ -183,11 +183,11 @@ useOverlayLifecycle({
 .mobile-navigation-drawer__actions button:active,
 .mobile-navigation-drawer__actions a:active,
 .mobile-navigation-drawer__close:active {
-  background: #f0f2f5;
+  background: var(--chat-hover);
 }
 
 .mobile-navigation-drawer__actions button:disabled {
-  color: #8696a0;
+  color: var(--chat-subtle);
   cursor: not-allowed;
   opacity: 0.72;
 }
@@ -198,7 +198,7 @@ useOverlayLifecycle({
 }
 
 .mobile-navigation-drawer__actions .mobile-navigation-drawer__danger {
-  color: #c62828;
+  color: var(--chat-danger);
 }
 
 .mobile-drawer-enter-active,
@@ -208,7 +208,7 @@ useOverlayLifecycle({
 
 .mobile-drawer-enter-active .mobile-navigation-drawer,
 .mobile-drawer-leave-active .mobile-navigation-drawer {
-  transition: transform 220ms ease;
+  transition: transform var(--motion-fluid);
 }
 
 .mobile-drawer-enter-from,

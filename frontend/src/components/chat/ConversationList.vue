@@ -16,6 +16,7 @@ defineProps({
 		type: Boolean,
 		default: false,
 	},
+	emptyMessage: { type: String, default: '' },
 	isRoomMuted: {
 		type: Function,
 		default: () => false,
@@ -31,7 +32,7 @@ const emit = defineEmits(["select"]);
 			{{ t("chat.loadingConversations") }}
 		</div>
 		<div v-else-if="!items.length" class="sidebar-hint">
-			{{ t("chat.noConversations") }}
+			{{ emptyMessage || t("chat.noConversations") }}
 		</div>
 		<button
 			v-for="item in items"
@@ -114,12 +115,12 @@ const emit = defineEmits(["select"]);
 	margin: 2px 12px;
 	padding: 12px;
 	border: none;
-	border-radius: 12px;
+	border-radius: 18px;
 	background: transparent;
 	cursor: pointer;
 	text-align: left;
 	touch-action: manipulation;
-	transition: background 150ms;
+	transition: background var(--motion-fluid), box-shadow var(--motion-fluid), transform var(--motion-press);
 }
 
 .sidebar-item:hover {
@@ -127,13 +128,14 @@ const emit = defineEmits(["select"]);
 }
 
 .sidebar-item:active {
-	background: rgba(0, 0, 0, 0.08);
+	background: var(--chat-pressed);
+	transform: scale(0.985);
 }
 
 .sidebar-item--active,
 .sidebar-item--active:hover {
-	background: var(--chat-selected);
-	box-shadow: inset 3px 0 var(--chat-accent);
+	background: var(--chat-paper);
+	box-shadow: var(--chat-shadow), inset 0 0 0 1px var(--chat-line);
 }
 
 .sidebar-item:focus-visible {
@@ -146,7 +148,7 @@ const emit = defineEmits(["select"]);
 	flex-shrink: 0;
 	width: 44px;
 	height: 44px;
-	border-radius: 50%;
+	border-radius: 15px;
 	box-shadow: none;
 }
 
@@ -254,24 +256,11 @@ const emit = defineEmits(["select"]);
 	}
 
 	.sidebar-item {
-		width: 100%;
+		width: calc(100% - 24px);
 		min-height: 80px;
-		margin: 0;
-		padding: 11px max(16px, env(safe-area-inset-right)) 11px
-			max(16px, env(safe-area-inset-left));
-		border-radius: 0;
-	}
-
-	/* 分隔线从正文起笔，避免头像和内容被粗重的整行边框割开。 */
-	.sidebar-item { position: relative; }
-	.sidebar-item + .sidebar-item::before {
-		content: "";
-		position: absolute;
-		top: 0;
-		right: 16px;
-		left: 72px;
-		height: 1px;
-		background: var(--chat-line);
+		margin: 4px 12px;
+		padding: 12px;
+		border-radius: 18px;
 	}
 }
 

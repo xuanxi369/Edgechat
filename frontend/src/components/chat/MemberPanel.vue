@@ -130,7 +130,7 @@ const emit = defineEmits(['close', 'update:inviteUserId', 'invite', 'remove-memb
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: #54656f;
+  color: var(--chat-muted);
   touch-action: manipulation;
 }
 

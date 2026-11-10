@@ -300,7 +300,7 @@ onBeforeUnmount(stopPolling);
 
 .telegram-heading__title h2 {
   margin: 0;
-  color: #2c4a6e;
+  color: var(--chat-ink);
   font-size: 14px;
   font-weight: 700;
 }
@@ -321,7 +321,7 @@ onBeforeUnmount(stopPolling);
 .telegram-unavailable,
 .telegram-notice {
   margin: 0;
-  color: #6b7c93;
+  color: var(--chat-muted);
   font-size: 13px;
   line-height: 1.6;
 }
@@ -334,7 +334,7 @@ onBeforeUnmount(stopPolling);
   gap: 8px;
   min-width: 0;
   margin: 0;
-  color: #52708f;
+  color: var(--chat-muted);
   font-size: 13px;
   font-weight: 600;
 }
@@ -358,7 +358,7 @@ onBeforeUnmount(stopPolling);
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  color: #2c4a6e;
+  color: var(--chat-ink);
   cursor: pointer;
 }
 
@@ -377,7 +377,7 @@ onBeforeUnmount(stopPolling);
 
 .telegram-preference__label svg {
   flex: 0 0 auto;
-  color: #6b8aab;
+  color: var(--chat-subtle);
 }
 
 .telegram-switch {
@@ -413,7 +413,7 @@ onBeforeUnmount(stopPolling);
   border-radius: 50%;
   background: #fff;
   box-shadow: 0 1px 4px rgba(44, 74, 110, 0.22);
-  transition: transform 160ms ease;
+  transition: transform var(--motion-fluid);
 }
 
 .telegram-switch input:checked + span {
@@ -459,7 +459,7 @@ onBeforeUnmount(stopPolling);
 .telegram-disconnect.ui-button {
   border-color: rgba(179, 74, 87, 0.2);
   background: transparent;
-  color: #a13f4d;
+  color: var(--chat-danger);
 }
 
 .telegram-disconnect.ui-button:hover:not(:disabled) {
@@ -473,11 +473,11 @@ onBeforeUnmount(stopPolling);
 }
 
 .telegram-notice--info {
-  color: #52708f;
+  color: var(--chat-muted);
 }
 
 .telegram-notice--error {
-  color: #a13f4d;
+  color: var(--chat-danger);
 }
 
 .telegram-spin {

@@ -53,7 +53,10 @@ const expanded = ref(true);
   flex: 0 0 auto;
   flex-direction: column;
   max-height: min(42%, 320px);
-  border-top: 1px solid var(--chat-line);
+  margin: 12px;
+  border: 1px solid var(--chat-line);
+  border-radius: 20px;
+  overflow: hidden;
   background: var(--chat-paper);
 }
 

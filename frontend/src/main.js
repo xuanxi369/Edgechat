@@ -15,6 +15,9 @@ import './styles/layout.css';
 import './styles/ui.css';
 import './styles/color-themes.css';
 import './styles/visual-effects.css';
+import './styles/chat-theme.css';
+import './styles/interface.css';
+import { initializeInterfaceTheme } from './composables/useInterfaceTheme.js';
 import { initLiquidGlass } from './liquid-glass.ts';
 import { initVisualEffects } from './visual-effects.ts';
 import { initializeI18n } from './i18n.js';
@@ -22,6 +25,7 @@ import { parseNotificationRoomTarget, takeNotificationRoomTarget } from './notif
 import { installChunkLoadRecovery } from './chunk-load.ts';
 
 installChunkLoadRecovery(window);
+initializeInterfaceTheme();
 // 挂载页面前应用偏好，避免低特效用户先看到一帧完整玻璃效果。
 const disposeVisualEffects = initVisualEffects();
 

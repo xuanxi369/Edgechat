@@ -60,6 +60,7 @@ test('the entry point mounts the application while authentication is still pendi
     localStorage: { getItem: () => null },
     installChunkLoadRecovery() {}, takeNotificationRoomTarget: () => null,
     initializeI18n: () => Promise.resolve(),
+    initializeInterfaceTheme() {},
     store: { initialize() { calls.push('initialize'); return new Promise(() => {}); } },
     createApp: () => ({ onUnmount() {}, use() { calls.push('router'); }, mount() { calls.push('mount'); } }),
     installCapacitorIntegration() {}, initLiquidGlass() {}, initVisualEffects() {}

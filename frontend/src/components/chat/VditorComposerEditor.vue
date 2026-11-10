@@ -6,6 +6,7 @@ import type { EdgeChatVditorRuntime } from "../../vditor-runtime.ts";
 import type { MentionUser } from "../../mentions.ts";
 import { installVditorContentSafety } from "../../vditor-content-safety.ts";
 import { getClipboardFiles } from "./clipboard-files.js";
+import { useInterfaceTheme } from "../../composables/useInterfaceTheme.js";
 
 const props = defineProps<{
 	modelValue: string;
@@ -23,6 +24,7 @@ const emit = defineEmits<{
 }>();
 
 const host = ref<HTMLElement | null>(null);
+const { dark } = useInterfaceTheme();
 let editor: Vditor | null = null;
 let initialized = false;
 let alive = true;
@@ -115,6 +117,7 @@ onMounted(() => {
 				parse: false,
 			},
 			i18n: props.runtime.i18n,
+			theme: dark.value ? "dark" : "classic",
 			icon: undefined,
 			image: { isPreview: false },
 			link: { isOpen: false },
@@ -166,6 +169,7 @@ onMounted(() => {
 				transferTarget.addEventListener("drop", insertTransferredText, true);
 				editor.setValue(props.modelValue, true);
 				initialized = true;
+				editor.setTheme(dark.value ? "dark" : "classic");
 				applyDisabledState(props.disabled);
 				syncValue();
 				editor.focus();
@@ -196,6 +200,7 @@ watch(
 	},
 );
 watch(() => props.disabled, applyDisabledState);
+watch(dark, value => { if (initialized) editor?.setTheme(value ? "dark" : "classic"); });
 
 onBeforeUnmount(() => {
 	alive = false;
@@ -245,9 +250,9 @@ defineExpose({
 }
 
 .composer-vditor.vditor {
-	border-color: #d8e0dd;
-	border-radius: 7px;
-	background: #ffffff;
+	border-color: var(--chat-line);
+	border-radius: 12px;
+	background: var(--chat-paper);
 }
 
 /* biome-ignore lint/correctness/noUnknownPseudoClass: Vue deep selector */

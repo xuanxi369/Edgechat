@@ -145,16 +145,18 @@ watch(
     max(16px, env(safe-area-inset-right))
     max(16px, env(safe-area-inset-bottom))
     max(16px, env(safe-area-inset-left));
-  background: rgba(0, 0, 0, 0.4);
+  background: var(--chat-scrim);
 }
 
 .add-conversation-dialog {
   width: min(440px, 100%);
   max-height: min(620px, calc(100dvh - 32px));
   overflow: hidden;
-  border-radius: 16px;
-  background: #fff;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  border-radius: 24px;
+  background: var(--chat-paper);
+  box-shadow: var(--chat-shadow-panel);
+  border: 1px solid var(--chat-line);
+  transition: transform var(--motion-reveal);
 }
 
 .add-conversation-dialog__header {
@@ -167,13 +169,13 @@ watch(
 
 .add-conversation-dialog__header h2 {
   margin: 0;
-  color: #111b21;
+  color: var(--chat-ink);
   font-size: 18px;
 }
 
 .add-conversation-dialog__header p {
   margin: 6px 0 0;
-  color: #667781;
+  color: var(--chat-muted);
   font-size: 13px;
 }
 
@@ -188,14 +190,14 @@ watch(
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: #54656f;
+  color: var(--chat-muted);
   cursor: pointer;
   transition: background 150ms, color 150ms;
 }
 
 .add-conversation-dialog__close:hover {
-  background: #f0f2f5;
-  color: #111b21;
+  background: var(--chat-hover);
+  color: var(--chat-ink);
 }
 
 .add-conversation-dialog__choices,
@@ -203,18 +205,19 @@ watch(
   display: grid;
   gap: 12px;
   padding: 8px 24px 24px;
+  animation: interface-reveal var(--motion-reveal);
 }
 
 .add-conversation-choice,
 .add-conversation-person {
   width: 100%;
   min-height: 64px;
-  border: 1px solid #e8ecf0;
+  border: 1px solid var(--chat-line);
   border-radius: 12px;
-  background: #fff;
-  color: #111b21;
+  background: var(--chat-paper);
+  color: var(--chat-ink);
   cursor: pointer;
-  transition: background 150ms, border-color 150ms, box-shadow 150ms;
+  transition: background var(--motion-press), border-color var(--motion-press), box-shadow var(--motion-press), transform var(--motion-press);
 }
 
 .add-conversation-choice {
@@ -257,13 +260,19 @@ watch(
 
 .add-conversation-choice small,
 .add-conversation-person small {
-  color: #667781;
+  color: var(--chat-muted);
   font-size: 12px;
 }
 
 .add-conversation-choice__arrow {
-  color: #8696a0;
+  color: var(--chat-subtle);
+  transition: transform var(--motion-fluid);
 }
+
+.add-conversation-choice:hover .add-conversation-choice__arrow { transform: translateX(4px); }
+.add-conversation-choice:active { transform: scale(0.98); }
+.add-conversation-fade-enter-from .add-conversation-dialog,
+.add-conversation-fade-leave-to .add-conversation-dialog { transform: translateY(12px) scale(0.97); }
 
 .add-conversation-dialog__back {
   display: inline-flex;
@@ -280,7 +289,7 @@ watch(
 }
 
 .add-conversation-dialog__back:hover {
-  background: #f0f2f5;
+  background: var(--chat-hover);
 }
 
 .add-conversation-dialog__list {
@@ -332,13 +341,13 @@ watch(
 }
 
 .add-conversation-dialog__empty {
-  background: #f5f7fa;
-  color: #667781;
+  background: var(--chat-hover);
+  color: var(--chat-muted);
 }
 
 .add-conversation-dialog__error {
-  background: #fef2f2;
-  color: #b91c1c;
+  background: var(--chat-danger-soft);
+  color: var(--chat-danger);
 }
 
 .add-conversation-dialog button:focus-visible {
@@ -368,7 +377,7 @@ watch(
   .add-conversation-dialog {
     width: 100%;
     max-height: calc(100dvh - env(safe-area-inset-top));
-    border-radius: 16px 16px 0 0;
+    border-radius: 24px 24px 0 0;
   }
 
   .add-conversation-dialog__header,

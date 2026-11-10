@@ -7,6 +7,7 @@ import TelegramNotificationSettings from '../components/settings/TelegramNotific
 import VisualEffectsSettings from '../components/settings/VisualEffectsSettings.vue';
 import UiAvatar from '../components/ui/Avatar.vue';
 import LanguageSwitch from '../components/ui/LanguageSwitch.vue';
+import ThemeToggle from '../components/ui/ThemeToggle.vue';
 import { isCapacitorAndroid, pickNativeFile } from '../capacitor-platform.ts';
 import { useI18n } from '../i18n.js';
 import { BIO_MAX_LENGTH, bioLength, normalizeBio } from '../../../shared/user-profile.ts';
@@ -306,6 +307,7 @@ async function changePassword() {
           <span class="settings-kicker">{{ t('settings.profileKicker') }}</span>
         </div>
         <div class="settings-header__right">
+          <ThemeToggle />
           <LanguageSwitch />
           <div class="avatar-block">
             <button type="button" class="avatar-trigger" @click="openAvatarPicker" :title="t('settings.changeAvatarTitle')">
@@ -479,7 +481,7 @@ async function changePassword() {
   align-items: center;
   justify-content: center;
   padding: 40px;
-  background: var(--site-background, linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%));
+  background: var(--chat-canvas);
 }
 
 .settings-container {
@@ -488,18 +490,14 @@ async function changePassword() {
   flex-direction: column;
   gap: 16px;
   padding: 28px;
-  border-radius: 24px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(247, 250, 253, 0.68)),
-    rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow:
-    0 24px 60px rgba(var(--site-brand-rgb, 91, 141, 191), 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  opacity: 0;
-  animation: containerRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+  border-radius: 28px;
+  background: var(--chat-paper);
+  border: 1px solid var(--chat-line);
+  box-shadow: var(--chat-shadow-panel);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  opacity: 1;
+  animation: interface-reveal var(--motion-reveal);
 }
 
 .settings-header {
@@ -657,15 +655,13 @@ async function changePassword() {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 20px;
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  box-shadow:
-    0 4px 16px rgba(var(--site-brand-rgb, 91, 141, 191), 0.04),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  opacity: 0;
-  animation: sectionRise 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--chat-canvas);
+  border: 1px solid var(--chat-line);
+  box-shadow: none;
+  opacity: 1;
+  animation: none;
 }
 
 .settings-section:nth-child(1) {
@@ -703,8 +699,8 @@ async function changePassword() {
   width: 100%;
   padding: 10px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--chat-line);
+  background: var(--chat-paper);
   color: var(--auth-ink, #2c4a6e);
   font-size: 14px;
   outline: none;
@@ -713,13 +709,13 @@ async function changePassword() {
 }
 
 .field-compact input:focus {
-  border-color: rgba(var(--site-brand-rgb, 91, 141, 191), 0.35);
-  box-shadow: 0 0 0 3px rgba(var(--site-brand-rgb, 91, 141, 191), 0.08);
-  background: rgba(255, 255, 255, 0.9);
+  border-color: var(--chat-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--chat-accent) 10%, transparent);
+  background: var(--chat-paper);
 }
 
 .field-compact input::placeholder {
-  color: rgba(107, 138, 171, 0.5);
+  color: var(--chat-subtle);
   font-size: 13px;
 }
 
@@ -727,19 +723,19 @@ async function changePassword() {
   margin-top: 6px;
   padding: 10px 20px;
   border: none;
-  border-radius: 12px;
-  background: var(--site-button-background, linear-gradient(135deg, rgba(91, 141, 191, 0.85), rgba(69, 121, 186, 0.8)));
-  color: var(--site-on-action, #fff);
+  border-radius: 999px;
+  background: var(--chat-ink);
+  color: var(--chat-paper);
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(var(--site-brand-rgb, 91, 141, 191), 0.2);
+  transition: transform var(--motion-press), box-shadow var(--motion-press);
+  box-shadow: none;
 }
 
 .save-btn:hover:not(:disabled) {
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(var(--site-brand-rgb, 91, 141, 191), 0.3);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 12%);
 }
 
 .save-btn:disabled {
@@ -752,8 +748,8 @@ async function changePassword() {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  opacity: 0;
-  animation: sectionRise 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s forwards;
+  opacity: 1;
+  animation: none;
 }
 
 .nav-link {
@@ -762,18 +758,19 @@ async function changePassword() {
   gap: 6px;
   padding: 8px 16px;
   border-radius: 999px;
-  border: 1px solid rgba(var(--site-brand-rgb, 91, 141, 191), 0.1);
-  background: rgba(255, 255, 255, 0.4);
+  border: 1px solid var(--chat-line);
+  background: var(--chat-paper);
   color: var(--auth-muted, #6b8aab);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  min-height: 44px;
 }
 
 .nav-link:hover {
-  background: rgba(255, 255, 255, 0.7);
-  border-color: rgba(var(--site-brand-rgb, 91, 141, 191), 0.2);
+  background: var(--chat-hover);
+  border-color: var(--chat-line);
   color: var(--auth-ink, #2c4a6e);
   transform: translateY(-1px);
 }
@@ -803,14 +800,10 @@ async function changePassword() {
   gap: 20px;
   padding: 36px;
   border-radius: 28px;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.88), rgba(247, 250, 253, 0.72)),
-    rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow:
-    0 30px 80px rgba(26, 35, 50, 0.2),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  backdrop-filter: blur(24px) saturate(180%);
+  background: var(--chat-paper);
+  border: 1px solid var(--chat-line);
+  box-shadow: var(--chat-shadow-panel);
+  backdrop-filter: none;
 }
 
 .crop-panel h3 {
@@ -895,9 +888,9 @@ async function changePassword() {
 .crop-cancel {
   flex: 1;
   padding: 14px;
-  border: 1px solid rgba(var(--site-brand-rgb, 91, 141, 191), 0.15);
+  border: 1px solid var(--chat-line);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--chat-canvas);
   color: var(--auth-muted, #6b8aab);
   font-size: 16px;
   font-weight: 500;
@@ -906,7 +899,7 @@ async function changePassword() {
 }
 
 .crop-cancel:hover {
-  background: rgba(255, 255, 255, 0.8);
+  background: var(--chat-hover);
   color: var(--auth-ink, #2c4a6e);
 }
 
@@ -915,8 +908,8 @@ async function changePassword() {
   padding: 14px;
   border: none;
   border-radius: 14px;
-  background: var(--site-button-background, linear-gradient(135deg, rgba(91, 141, 191, 0.85), rgba(69, 121, 186, 0.8)));
-  color: var(--site-on-action, #fff);
+  background: var(--chat-ink);
+  color: var(--chat-paper);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;

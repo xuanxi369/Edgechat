@@ -1,0 +1,87 @@
+.login-page {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 1fr);
+  align-items: center;
+  min-height: 100dvh;
+  padding: 20px;
+  overflow: hidden;
+  background: var(--chat-paper);
+}
+.login-art {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-self: stretch;
+  min-height: 640px;
+  padding: 36px;
+  overflow: hidden;
+  border: 1px solid var(--chat-line);
+  border-radius: 28px;
+  background: var(--chat-canvas);
+}
+.login-art__brand { display: flex; align-items: center; gap: 12px; font-size: 18px; font-weight: 650; letter-spacing: -0.04em; }
+.login-art__mark, .login-mark { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 16px; background: var(--chat-ink); color: var(--chat-paper); }
+.login-art__scene { position: relative; display: grid; place-content: center; gap: 18px; min-height: 330px; padding: 36px 12px; }
+.login-art__orbit { position: absolute; inset: 50% auto auto 50%; width: min(26vw, 360px); aspect-ratio: 1; transform: translate(-50%, -50%); border: 1px solid var(--chat-line); border-radius: 50%; }
+.login-art__orbit::before, .login-art__orbit::after { content: ''; position: absolute; inset: -38px; border: 1px solid var(--chat-line); border-radius: inherit; }
+.login-art__orbit::after { inset: -76px; opacity: 0.5; }
+.login-art__note {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 100%;
+  padding: 22px;
+  border: 1px solid var(--chat-line);
+  border-radius: 24px 24px 24px 8px;
+  background: var(--chat-paper);
+  box-shadow: 0 24px 50px rgb(20 20 15 / 6%);
+  transform: rotate(-5deg) translateX(-18px);
+  transition: transform var(--motion-fluid), box-shadow var(--motion-fluid);
+}
+.login-art:hover .login-art__note--first { transform: rotate(-2deg) translateX(-24px) translateY(-5px); }
+.login-art__avatar { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; border-radius: 14px; background: #dfdcf0; color: #4b425e; font-weight: 600; }
+.login-art__note small { display: block; margin-bottom: 8px; color: var(--chat-muted); font-size: 12px; }
+.login-art__note strong { display: flex; align-items: center; gap: 12px; font-size: clamp(14px, 1.4vw, 19px); font-weight: 550; }
+.login-art__note :where(strong) svg { color: var(--chat-accent); }
+.login-art__note--reply { justify-self: end; gap: 28px; padding: 22px 24px; border-color: transparent; border-radius: 24px 24px 8px 24px; background: #e7e3f1; color: #413952; transform: rotate(6deg) translateX(20px); font-size: 17px; }
+.login-art:hover .login-art__note--reply { transform: rotate(3deg) translateX(26px) translateY(3px); }
+.login-art__typing { position: relative; display: flex; gap: 6px; justify-self: start; margin-top: 8px; padding: 15px 20px; border: 1px solid var(--chat-line); border-radius: 18px 18px 18px 5px; background: var(--chat-paper); transform: rotate(-4deg); }
+.login-art__typing i { width: 6px; height: 6px; border-radius: 50%; background: var(--chat-subtle); }
+.login-art__caption { position: relative; max-width: 440px; padding: 16px 0; }
+.login-art__caption > span { color: var(--chat-muted); font-size: 11px; letter-spacing: 0.12em; }
+.login-art__caption h2 { margin: 16px 0; font-size: clamp(26px, 2.6vw, 40px); font-weight: 550; line-height: 1.45; letter-spacing: -0.045em; }
+.login-art__caption p { margin: 0; color: var(--chat-muted); font-size: 14px; line-height: 1.8; }
+.login-container { width: min(360px, 100%); justify-self: center; padding: 48px 0; animation: interface-reveal var(--motion-reveal); }
+.title-group { display: flex; flex-direction: column; align-items: flex-start; }
+.login-mark { margin-bottom: 28px; }
+.welcome-text { margin: 0 0 8px; color: var(--chat-ink); font-size: 30px; font-weight: 600; letter-spacing: -0.045em; }
+.brand-name { margin: 0; color: var(--chat-muted); font-size: 15px; font-weight: 400; }
+.login-description { margin: 20px 0 32px; color: var(--chat-muted); font-size: 13px; line-height: 1.8; }
+.login-form { display: flex; flex-direction: column; gap: 14px; }
+.input-wrapper { position: relative; width: 100%; }
+.login-input { width: 100%; min-height: 54px; padding: 0 18px; border: 1px solid var(--chat-line); border-radius: 14px; background: var(--chat-canvas); color: var(--chat-ink); font-size: 15px; outline: none; transition: border-color var(--motion-press), box-shadow var(--motion-press); }
+.login-input::placeholder { color: var(--chat-muted); }
+.login-input:focus { border-color: var(--chat-accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--chat-accent) 12%, transparent); }
+.login-btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 52px; margin-top: 8px; padding: 12px 20px; border: 0; border-radius: 999px; background: var(--chat-ink); color: var(--chat-paper); font-size: 14px; font-weight: 550; cursor: pointer; transition: transform var(--motion-press), box-shadow var(--motion-press); }
+.login-btn svg { transition: transform var(--motion-fluid); }
+.login-btn:hover:not(:disabled) { box-shadow: 0 6px 18px rgb(20 20 20 / 15%); }
+.login-btn:hover:not(:disabled) svg { transform: translate(2px, -2px); }
+.login-btn:active:not(:disabled) { transform: scale(0.98); }
+.login-btn:disabled { opacity: 0.5; cursor: wait; }
+.login-btn:focus-visible { outline: 2px solid var(--chat-accent); outline-offset: 4px; }
+.error-text { margin: 0; color: var(--chat-danger); font-size: 13px; line-height: 1.6; }
+.success-hint { color: var(--chat-online); font-size: 13px; }
+.login-language-switch { position: absolute; top: max(24px, env(safe-area-inset-top)); right: max(24px, env(safe-area-inset-right)); z-index: 2; }
+.login-theme { position: absolute; top: max(24px, env(safe-area-inset-top)); right: 78px; z-index: 2; }
+.login-page--register { grid-template-columns: 1fr; background: var(--chat-canvas); padding: 88px 24px 32px; }
+.login-page--register .login-container { width: min(420px, 100%); padding: 32px; border: 1px solid var(--chat-line); border-radius: 28px; background: var(--chat-paper); box-shadow: var(--chat-shadow); }
+.login-page--register .title-group { margin-bottom: 24px; }
+.info-text { color: var(--chat-muted); font-size: 13px; line-height: 1.7; margin: 0 0 24px; }
+@media (max-width: 960px) {
+  .login-page { grid-template-columns: 1fr; padding: 24px; }
+  .login-art { display: none; }
+  .login-container { padding: 80px 0 40px; }
+}

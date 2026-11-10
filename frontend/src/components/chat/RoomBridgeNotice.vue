@@ -39,7 +39,7 @@ onBeforeUnmount(() => { generation++; window.removeEventListener('focus', load);
 </template>
 
 <style scoped>
-.room-bridge-notice { display: flex; gap: 10px; align-items: flex-start; padding: 10px 16px; font-size: 12px; line-height: 1.5; border-bottom: 1px solid var(--chat-border); background: var(--chat-surface); color: var(--chat-text-secondary); }
+.room-bridge-notice { display: flex; gap: 10px; align-items: flex-start; padding: 10px 16px; font-size: 12px; line-height: 1.5; border-bottom: 1px solid var(--chat-line); background: var(--chat-paper); color: var(--chat-muted); }
 .room-bridge-notice > svg { flex-shrink: 0; margin-top: 3px; }
 .room-bridge-notice > div { min-width: 0; flex: 1; overflow-wrap: anywhere; }
 .room-bridge-notice strong { font-weight: 600; }

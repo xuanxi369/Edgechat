@@ -115,12 +115,13 @@ const time = computed(() => props.msg.createdAt ? formatTime(props.msg.createdAt
   min-width: 0;
   max-width: min(76%, 620px);
   padding: 10px 12px 8px;
-  border-radius: 14px 14px 14px 4px;
+  border-radius: 20px 20px 20px 6px;
   background: var(--chat-paper);
   border: none;
   position: relative;
   word-break: break-word;
   box-shadow: var(--chat-shadow);
+  animation: message-arrive var(--motion-reveal);
 }
 .message-row--actionable .message-bubble {
   touch-action: pan-y;
@@ -129,7 +130,7 @@ const time = computed(() => props.msg.createdAt ? formatTime(props.msg.createdAt
 .message-bubble--with-attachment { padding-bottom: 20px; }
 .message-row--own .message-bubble {
   background: var(--chat-outgoing);
-  border-radius: 14px 14px 4px 14px;
+  border-radius: 20px 20px 6px 20px;
 }
 .message-sender-name {
   display: flex;
@@ -153,6 +154,7 @@ const time = computed(() => props.msg.createdAt ? formatTime(props.msg.createdAt
   user-select: none;
 }
 .message-bubble__reply { margin-bottom: 5px; }
+@keyframes message-arrive { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 .message-delivery {
   display: flex;
   align-items: center;

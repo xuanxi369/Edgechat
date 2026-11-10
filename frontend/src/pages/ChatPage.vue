@@ -1,5 +1,5 @@
 <script setup>
-import { ArrowLeft, Ban, Bell, BellOff, ContactRound, Menu, MessageCircle, Phone, Settings, UsersRound } from '@lucide/vue';
+import { ArrowLeft, Ban, Bell, BellOff, ContactRound, Menu, MessageCircle, Phone, Search, Settings, UsersRound, X } from '@lucide/vue';
 import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import {
@@ -18,6 +18,9 @@ import RoomBridgeNotice from '../components/chat/RoomBridgeNotice.vue';
 import PublicGroupDiscovery from '../components/chat/PublicGroupDiscovery.vue';
 import UiAvatar from '../components/ui/Avatar.vue';
 import LanguageSwitch from '../components/ui/LanguageSwitch.vue';
+import SegmentedControl from '../components/ui/SegmentedControl.vue';
+import ThemeToggle from '../components/ui/ThemeToggle.vue';
+import { filterConversations } from '../conversation-filters.js';
 import { useActiveRoom } from '../composables/useActiveRoom.js';
 import { useBrowserNotifications } from '../composables/useBrowserNotifications.js';
 import { useChatRoom } from '../composables/useChatRoom.js';
@@ -96,6 +99,14 @@ const { openConversationItem, openByIdentity, refreshAndOpen } = useConversation
   openConversation,
   openConversationView
 });
+const conversationQuery = ref('');
+const conversationFilter = ref('all');
+const filteredConversations = computed(() => filterConversations(conversationItems.value, conversationQuery.value, conversationFilter.value));
+const conversationFilters = computed(() => [
+  { value: 'all', label: t('interface.all') },
+  { value: 'unread', label: t('interface.unread'), count: conversationItems.value.filter(item => item.unreadCount > 0 || item.mentionUnreadCount > 0).length },
+  { value: 'groups', label: t('interface.groups') }
+]);
 
 const {
   notificationsEnabled,
@@ -539,6 +550,7 @@ watch(
     <!-- 导航与会话列表保持独立，切换通讯录时不破坏现有聊天工作区。 -->
     <aside class="right-sidebar">
       <div class="right-sidebar-inner">
+        <span class="workspace-mark" aria-hidden="true"><MessageCircle :size="25" /></span>
         <div class="right-sidebar-section right-sidebar-actions">
           <button
             type="button"
@@ -666,18 +678,29 @@ watch(
 
         <div class="sidebar-list-heading">
           <h2>{{ t('nav.chats') }}</h2>
-          <span>{{ conversationItems.length }}</span>
+          <ThemeToggle />
+        </div>
+
+        <div class="sidebar-controls">
+          <label class="conversation-search">
+            <Search :size="17" aria-hidden="true" />
+            <input v-model="conversationQuery" type="search" :placeholder="t('interface.search')" :aria-label="t('interface.search')" @keydown.esc="conversationQuery = ''" />
+            <button v-if="conversationQuery" type="button" :aria-label="t('interface.clearSearch')" @click="conversationQuery = ''"><X :size="15" aria-hidden="true" /></button>
+          </label>
+          <SegmentedControl v-model="conversationFilter" :options="conversationFilters" :label="t('interface.filter')" />
+          <div class="sidebar-results" role="status">{{ t('interface.conversationCount', { count: filteredConversations.length }) }}</div>
         </div>
 
 		<ConversationList
-		  :items="conversationItems"
+		  :items="filteredConversations"
 		  :active-key="activeRoomKey"
 		  :loading="sidebarLoading"
+		  :empty-message="conversationQuery || conversationFilter !== 'all' ? t('interface.noResults') : ''"
 		  :is-room-muted="isRoomMuted"
 		  @select="selectConversation"
 		/>
 
-		<PublicGroupDiscovery :items="publicGroupItems" @select="openPublicGroupPreview" />
+		<PublicGroupDiscovery v-show="!conversationQuery && conversationFilter !== 'unread'" :items="publicGroupItems" @select="openPublicGroupPreview" />
       </div>
     </aside>
 
@@ -1006,13 +1029,13 @@ watch(
 
 .left-sidebar {
   flex-shrink: 0;
-  width: clamp(300px, 27vw, 380px);
+  width: clamp(300px, 24vw, 340px);
   height: 100%;
   position: relative;
   z-index: 10;
   overflow: hidden;
-  background: var(--chat-paper);
-  border-right: 1px solid var(--chat-line);
+  background: var(--chat-canvas);
+  border-right: 0;
 }
 
 .chat-layout--contacts .left-sidebar {
@@ -1023,7 +1046,7 @@ watch(
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--chat-paper);
+  background: var(--chat-canvas);
   overflow: hidden;
 }
 
@@ -1031,9 +1054,9 @@ watch(
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 84px;
-  padding: 20px 24px 16px;
-  background: var(--chat-paper);
+  min-height: 88px;
+  padding: 20px 24px 12px;
+  background: transparent;
 }
 
 .header-action.mobile-menu-action {
@@ -1044,9 +1067,9 @@ watch(
   margin: 0;
   font-size: 23px;
   font-weight: 700;
-  color: var(--chat-accent);
+  color: var(--chat-ink);
   font-family: var(--chat-font-heading);
-  letter-spacing: 0;
+  letter-spacing: -0.055em;
 }
 
 .sidebar-header-actions {
@@ -1073,7 +1096,7 @@ watch(
   color: var(--chat-muted);
   cursor: pointer;
   text-decoration: none;
-  transition: background 150ms, color 150ms;
+  transition: background var(--motion-press), color var(--motion-press), transform var(--motion-press);
 }
 
 .header-action:hover {
@@ -1082,13 +1105,14 @@ watch(
 }
 
 .header-action--primary {
-  background: var(--chat-selected);
-  color: var(--chat-accent);
+  background: var(--chat-ink);
+  color: var(--chat-paper);
 }
 
 .header-action--primary:hover {
-  background: var(--chat-pressed);
-  color: var(--chat-accent-hover);
+  background: color-mix(in srgb, var(--chat-ink) 85%, var(--chat-paper));
+  color: var(--chat-paper);
+  transform: rotate(-6deg);
 }
 
 .header-action:active,
@@ -1104,13 +1128,13 @@ watch(
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 4px 24px 16px;
+  padding: 0 24px 4px;
   color: var(--chat-muted);
 }
 
 .sidebar-list-heading h2 {
   margin: 0;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
 }
 
@@ -1126,8 +1150,8 @@ watch(
   position: relative;
   z-index: 10;
   overflow: visible;
-  background: var(--chat-rail);
-  border-right: 1px solid var(--chat-line);
+  background: var(--chat-canvas);
+  border-right: 0;
 }
 
 .right-sidebar-inner {
@@ -1135,15 +1159,15 @@ watch(
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  background: var(--chat-rail);
-  padding: 20px 8px;
+  background: var(--chat-canvas);
+  padding: 24px 8px;
   align-items: center;
 }
 
 .right-sidebar-section {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
   width: 100%;
 }
@@ -1151,6 +1175,41 @@ watch(
 .right-sidebar-user-group {
   margin-top: auto;
 }
+
+.workspace-mark {
+  display: grid;
+  place-items: center;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin-bottom: 28px;
+  border-radius: 15px;
+  background: var(--chat-ink);
+  color: var(--chat-paper);
+}
+
+.right-sidebar-actions { margin-bottom: auto; }
+
+.sidebar-controls { display: grid; gap: 14px; padding: 0 24px 8px; }
+.conversation-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--chat-line);
+  border-radius: 14px;
+  background: var(--chat-paper);
+  color: var(--chat-muted);
+  transition: border-color var(--motion-press), box-shadow var(--motion-press);
+}
+.conversation-search:focus-within { border-color: var(--chat-accent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--chat-accent) 10%, transparent); }
+.conversation-search input { width: 100%; min-width: 0; height: 42px; border: 0; outline: 0; background: transparent; color: var(--chat-ink); font-size: 12px; }
+.conversation-search input::placeholder { color: var(--chat-muted); }
+.conversation-search input::-webkit-search-cancel-button { display: none; }
+.conversation-search button { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 44px; margin-right: -8px; border: 0; border-radius: 10px; background: transparent; color: var(--chat-muted); }
+.conversation-search button:focus-visible { outline: 2px solid var(--chat-accent); }
+.sidebar-results { color: var(--chat-subtle); font-size: 11px; font-variant-numeric: tabular-nums; }
 
 .right-sidebar-action,
 .right-sidebar-user {
@@ -1164,7 +1223,7 @@ watch(
   background: transparent;
   color: var(--chat-muted);
   cursor: pointer;
-  transition: background 150ms, color 150ms, transform 150ms;
+  transition: background var(--motion-fluid), color var(--motion-press), transform var(--motion-press), box-shadow var(--motion-fluid);
   padding: 0;
   position: relative;
   touch-action: manipulation;
@@ -1204,9 +1263,9 @@ watch(
 }
 
 .right-sidebar-action--current {
-  background: var(--chat-selected);
-  color: var(--chat-accent);
-  box-shadow: inset 3px 0 var(--chat-accent);
+  background: var(--chat-paper);
+  color: var(--chat-ink);
+  box-shadow: var(--chat-shadow);
 }
 
 .right-sidebar-action:disabled {
@@ -1268,6 +1327,10 @@ watch(
   min-height: 0;
   overflow: hidden;
   background: var(--site-background, var(--chat-canvas));
+  margin: 12px 12px 12px 0;
+  border: 1px solid var(--chat-line);
+  border-radius: 24px;
+  box-shadow: var(--chat-shadow);
 }
 
 .chat-header {
@@ -1275,8 +1338,8 @@ watch(
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  min-height: 76px;
-  padding: 12px 24px;
+  min-height: 80px;
+  padding: 14px 24px;
   background: var(--chat-paper);
   border-bottom: 1px solid var(--chat-line);
 }
@@ -1334,7 +1397,7 @@ watch(
   color: var(--chat-muted);
   font-size: 12px;
   cursor: pointer;
-  transition: background 150ms, color 150ms, border-color 150ms;
+  transition: background var(--motion-press), color var(--motion-press), border-color var(--motion-press), transform var(--motion-press);
   touch-action: manipulation;
   white-space: nowrap;
 }
@@ -1344,6 +1407,10 @@ watch(
   border-color: var(--chat-line);
   color: var(--chat-ink);
 }
+
+.header-action:active,
+.right-sidebar-action:active,
+.chat-header__button:active { transform: scale(0.94); }
 
 .chat-header__button--active {
   border-color: var(--chat-line);
@@ -1409,7 +1476,7 @@ watch(
   min-height: 0;
   overflow-y: auto;
   /* 超宽屏保持对话集中，避免左右气泡相距过远；窄屏沿用安全区留白。 */
-  padding: 24px max(28px, calc((100% - 960px) / 2));
+  padding: 28px max(32px, calc((100% - 880px) / 2));
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
   touch-action: pan-y;
@@ -1421,7 +1488,7 @@ watch(
 .load-more-btn {
   display: block;
   margin: 0 auto 16px;
-  min-height: var(--chat-control);
+  min-height: 36px;
   padding: 10px 20px;
   border: 1px solid var(--chat-line);
   border-radius: 24px;
@@ -1473,6 +1540,7 @@ watch(
   display: flex;
   align-items: center;
   justify-content: center;
+  background: radial-gradient(ellipse at center, var(--chat-selected), transparent 65%);
 }
 
 .chat-empty__language-switch {
@@ -1507,14 +1575,14 @@ watch(
   padding: 10px 20px;
   border: 1px solid var(--chat-line);
   border-radius: 24px;
-  background: var(--chat-paper);
-  color: var(--chat-accent);
+  background: var(--chat-ink);
+  color: var(--chat-paper);
   font-size: 14px;
   font-weight: 600;
 }
 
 .empty-start:hover {
-  background: var(--chat-selected);
+  transform: translateY(-2px);
 }
 
 .empty-brand {
@@ -1539,11 +1607,14 @@ watch(
 .room-management-layer {
   /* 成员面板覆盖聊天区而非挤压它，打开面板不会改变消息与输入栏的宽度。 */
   position: absolute;
-  inset: 76px 0 0;
+  inset: 92px 12px 12px 80px;
   z-index: 30;
   display: flex;
   justify-content: flex-end;
   background: var(--chat-scrim);
+  border-radius: 0 0 24px 24px;
+  overflow: hidden;
+  animation: interface-reveal var(--motion-reveal);
 }
 
 .room-management-sidebar {
@@ -1554,7 +1625,10 @@ watch(
   border-left: 1px solid var(--chat-line);
   touch-action: pan-y;
   box-shadow: var(--chat-shadow-panel);
+  animation: member-reveal var(--motion-fluid);
 }
+
+@keyframes member-reveal { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
 
 /* 中等宽度只压缩次要按钮文字，不牺牲标题或触摸面积。 */
 @media (min-width: 961px) and (max-width: 1280px) {
@@ -1584,7 +1658,16 @@ watch(
   .chat-main {
     width: 100%;
     flex: 0 0 100%;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
   }
+
+  .sidebar-controls { padding: 0 16px 8px; }
+  .conversation-search input { font-size: 16px; }
+  .room-management-layer { inset: 64px 0 0; border-radius: 0; }
+  .load-more-btn { min-height: 44px; }
 
   .chat-layout--mobile-list .chat-main,
   .chat-layout--mobile-chat .left-sidebar {
