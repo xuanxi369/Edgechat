@@ -59,7 +59,7 @@ function resetDemo() {
     <!-- 演示站访客刚体验完产品，是最可能点 Star 的人群；生产构建会静态删除整个 DemoNavigator。 -->
     <a
       class="demo-navigator__star"
-      href="https://github.com/aozorae/Edgechat"
+      href="https://github.com/xuanxi369/IIeaoChat"
       target="_blank"
       rel="noopener noreferrer"
       :title="t('demo.star')"

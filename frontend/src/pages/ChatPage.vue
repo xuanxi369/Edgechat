@@ -647,7 +647,7 @@ watch(
           <div class="sidebar-header-actions">
             <a
               class="header-action header-action--github"
-              href="https://github.com/aozorae/Edgechat"
+              href="https://github.com/xuanxi369/IIeaoChat"
               target="_blank"
               rel="noopener noreferrer"
               :title="t('nav.githubRepository')"

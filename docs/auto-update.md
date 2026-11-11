@@ -1,6 +1,8 @@
 # 定时同步稳定版与安全更新
 
-`Sync Upstream` 每天 UTC 01:17、13:17（北京时间 09:17、21:17）检查 `aozorae/Edgechat` 默认分支；GitHub 调度可能延迟。上游主仓跳过自身，fork/源码副本更新自己的默认分支。
+`Sync Upstream` 每天 UTC 01:17、13:17（北京时间 09:17、21:17）检查 `xuanxi369/IIeaoChat` 默认分支；GitHub 调度可能延迟。上游主仓跳过自身，fork/源码副本更新自己的默认分支。
+
+`xuanxi369/IIeaoChat` 是此二次开发版本的上游仓库。在主仓向 `master` 或 `main` 推送符合部署工作流路径条件的修改后，由 `00 Deploy Worker` 自动部署；基于此仓库的 fork/源码副本通过 `Sync Upstream` 跟随带有 `EdgeChat-Update: stable` 或 `EdgeChat-Update: security` 标记的发布提交。
 
 ## 部署者首次配置
 

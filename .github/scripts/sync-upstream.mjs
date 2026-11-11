@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 const exec = promisify(execFile);
-const UPSTREAM = "aozorae/Edgechat";
+const UPSTREAM = "xuanxi369/IIeaoChat";
 const UPSTREAM_REF = "refs/remotes/edgechat-upstream/release";
 const DEPLOY_WORKFLOW = "deploy-worker.yml";
 

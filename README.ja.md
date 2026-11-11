@@ -2,7 +2,7 @@
   <img src="Edgechat.jpg" alt="EdgeChat" width="640" />
 
   <p>
-    <a href="https://trendshift.io/repositories/140939?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-140939" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/140939/daily?language=JavaScript" alt="aozorae%2FEdgechat | Trendshift" width="250" height="55"/></a>
+    <a href="https://github.com/xuanxi369/IIeaoChat" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub-IIeaoChat-181717?style=for-the-badge&amp;logo=github" alt="xuanxi369/IIeaoChat" /></a>
   </p>
 
   <h3>自分のチャットスペースを、サーバーの保守から始める必要はありません。</h3>
@@ -10,10 +10,10 @@
   <p>リアルタイムのグループチャットとダイレクトメッセージ · Telegram 双方向ブリッジ · 音声とファイル · メッセージと添付ファイルのサーバーサイド暗号化</p>
 
   <p>
-    <img src="https://img.shields.io/github/license/aozorae/Edgechat?style=flat-square&color=blue" alt="license" />
-    <img src="https://img.shields.io/github/stars/aozorae/Edgechat?style=flat-square&color=orange" alt="stars" />
-    <img src="https://img.shields.io/github/forks/aozorae/Edgechat?style=flat-square" alt="forks" />
-    <img src="https://img.shields.io/github/last-commit/aozorae/Edgechat?style=flat-square" alt="last commit" />
+    <img src="https://img.shields.io/github/license/xuanxi369/IIeaoChat?style=flat-square&color=blue" alt="license" />
+    <img src="https://img.shields.io/github/stars/xuanxi369/IIeaoChat?style=flat-square&color=orange" alt="stars" />
+    <img src="https://img.shields.io/github/forks/xuanxi369/IIeaoChat?style=flat-square" alt="forks" />
+    <img src="https://img.shields.io/github/last-commit/xuanxi369/IIeaoChat?style=flat-square" alt="last commit" />
     <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Workers" />
   </p>
 
@@ -209,7 +209,7 @@ Docker の説明は [DOCKER.md](DOCKER.md) を参照してください。
 
 `capacitor/` クライアントは APK に Vue Web UI を内蔵し、少量の Kotlin コードでシステムのファイル選択、通知、マイク権限、通知からの会話移動、外部リンクに接続します。パッケージ名は `com.aozorae.edgechat.web` で、初回ログイン時に自分の EdgeChat HTTPS サービスアドレスを入力します。特定のデプロイには紐付きません。
 
-- インストールパッケージ：[GitHub Releases](https://github.com/aozorae/Edgechat/releases) から `edgechat-*.apk` をダウンロードし、`SHA256SUMS.txt` を確認。
+- インストールパッケージ：[GitHub Releases](https://github.com/xuanxi369/IIeaoChat/releases) から `edgechat-*.apk` をダウンロードし、`SHA256SUMS.txt` を確認。
 - 初回利用：自分の EdgeChat HTTPS サービスアドレス、アカウント、パスワードを入力。
 - ローカルビルド：JDK 21 と Android SDK 36 を準備し、`npm run build:capacitor` を実行。
 - Debug APK：`capacitor/android/app/build/outputs/apk/debug/app-debug.apk`。
@@ -229,8 +229,8 @@ Docker の説明は [DOCKER.md](DOCKER.md) を参照してください。
 
 ```bash
 # ソースコードを取得
-git clone https://github.com/aozorae/Edgechat.git
-cd Edgechat
+git clone https://github.com/xuanxi369/IIeaoChat.git
+cd IIeaoChat
 
 # 依存関係をインストール
 npm install
@@ -309,23 +309,23 @@ Edgechat/
 
 ## 交流と貢献
 
-問題がある場合、機能について議論したい場合、または独自の使い方を共有したい場合は、[Issue](https://github.com/aozorae/Edgechat/issues) を提出してください。[Telegram コミュニティ](https://t.me/EdgeChatlounge) への参加も歓迎します。
+問題がある場合、機能について議論したい場合、または独自の使い方を共有したい場合は、[Issue](https://github.com/xuanxi369/IIeaoChat/issues) を提出してください。[Telegram コミュニティ](https://t.me/EdgeChatlounge) への参加も歓迎します。
 
 コード、ドキュメント、翻訳、フィードバックはすべてプロジェクトの改善に役立ちます。Pull Request を歓迎します。
 
 EdgeChat を支援してくださったすべての貢献者に感謝します：
 
-[![貢献者](https://contrib.rocks/image?repo=aozorae/Edgechat)](https://github.com/aozorae/Edgechat/graphs/contributors)
+[![貢献者](https://contrib.rocks/image?repo=xuanxi369/IIeaoChat)](https://github.com/xuanxi369/IIeaoChat/graphs/contributors)
 
 PWA 対応の [PR #31](https://github.com/aozorae/Edgechat/pull/31) を提出してくださった [@fix221](https://github.com/fix221) に感謝します。
 
 ## Star History
 
-<a href="https://www.star-history.com/?type=date&repos=aozorae%2FEdgechat">
+<a href="https://www.star-history.com/?type=date&repos=xuanxi369%2FIIeaoChat">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=aozorae/Edgechat&type=date&theme=dark&legend=top-left&sealed_token=GpyqTbdwb3a2OHOT-WlCSoSzrumr3iwtcNluTpGbcU5CuyfP4eKf9TjtDuJ2uY4XK0P6knEB6OFCkbaAMsMCO3vnGPprGvB4f4rd7kmbUNe3fJ8LNaaGVH7JZLDT7SNNy3DC-sBxZwBmfL7gP9AFv1iKX1FgYnRZuOBGcKkbWFlBuoq2TXpYIfWmoUF9" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=aozorae/Edgechat&type=date&legend=top-left&sealed_token=GpyqTbdwb3a2OHOT-WlCSoSzrumr3iwtcNluTpGbcU5CuyfP4eKf9TjtDuJ2uY4XK0P6knEB6OFCkbaAMsMCO3vnGPprGvB4f4rd7kmbUNe3fJ8LNaaGVH7JZLDT7SNNy3DC-sBxZwBmfL7gP9AFv1iKX1FgYnRZuOBGcKkbWFlBuoq2TXpYIfWmoUF9" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=aozorae/Edgechat&type=date&legend=top-left&sealed_token=GpyqTbdwb3a2OHOT-WlCSoSzrumr3iwtcNluTpGbcU5CuyfP4eKf9TjtDuJ2uY4XK0P6knEB6OFCkbaAMsMCO3vnGPprGvB4f4rd7kmbUNe3fJ8LNaaGVH7JZLDT7SNNy3DC-sBxZwBmfL7gP9AFv1iKX1FgYnRZuOBGcKkbWFlBuoq2TXpYIfWmoUF9" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=xuanxi369/IIeaoChat&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=xuanxi369/IIeaoChat&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=xuanxi369/IIeaoChat&type=date&legend=top-left" />
  </picture>
 </a>
 

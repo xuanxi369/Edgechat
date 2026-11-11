@@ -13,7 +13,7 @@ beforeEach(() => {
 });
 
 const build = {
-	repository: "aozorae/Edgechat",
+	repository: "xuanxi369/IIeaoChat",
 	commit: "0459f5944b4ebc06bfbb071eefa2bff9cf48c69e",
 	branch: "master",
 	dirty: false,
@@ -51,7 +51,7 @@ test("构建元数据优先使用 GitHub Actions 提供的精确提交信息", (
 
 test("本地构建从 origin、当前提交与分支生成更新基线", () => {
 	const values = new Map([
-		["remote get-url origin", "git@github.com:aozorae/Edgechat.git"],
+		["remote get-url origin", "git@github.com:xuanxi369/IIeaoChat.git"],
 		["rev-parse HEAD", build.commit],
 		["branch --show-current", "master"],
 		["status --porcelain", ""],
@@ -76,7 +76,7 @@ test("前端 Compare 检查确认当前部署已是最新版本", async () => {
 				status: "identical",
 				ahead_by: 0,
 				behind_by: 0,
-				html_url: "https://github.com/aozorae/Edgechat/compare/current",
+				html_url: "https://github.com/xuanxi369/IIeaoChat/compare/current",
 				commits: [],
 			});
 		},
@@ -95,11 +95,11 @@ test("前端 Compare 检查能显示远端新提交", async () => {
 				status: "ahead",
 				ahead_by: 2,
 				behind_by: 0,
-				html_url: "https://github.com/aozorae/Edgechat/compare/update",
+				html_url: "https://github.com/xuanxi369/IIeaoChat/compare/update",
 				commits: [
 					{
 						sha: "abcdef1234567890",
-						html_url: "https://github.com/aozorae/Edgechat/commit/abcdef1",
+						html_url: "https://github.com/xuanxi369/IIeaoChat/commit/abcdef1",
 						commit: {
 							message: "feat: add update check\n\nbody",
 							committer: { date: "2026-07-29T10:00:00Z" },

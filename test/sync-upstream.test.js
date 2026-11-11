@@ -79,7 +79,7 @@ function fixture(t, { customized = false, conflict = false } = {}) {
 					if (rejectPush && args[0] === "push")
 						throw new Error("Branch protection rejected push");
 					const localArgs = args.map((arg) =>
-						arg === "https://github.com/aozorae/Edgechat.git" ? upstream : arg,
+						arg === "https://github.com/xuanxi369/IIeaoChat.git" ? upstream : arg,
 					);
 					try {
 						return command(checkout, localArgs);
@@ -91,7 +91,7 @@ function fixture(t, { customized = false, conflict = false } = {}) {
 				},
 				request: async (path, body) => {
 					requests.push({ path, body });
-					if (path === "/repos/aozorae/Edgechat")
+					if (path === "/repos/xuanxi369/IIeaoChat")
 						return { default_branch: "main" };
 					if (path.includes("/runs?")) return { workflow_runs: runs };
 					assert.match(
@@ -108,7 +108,7 @@ function fixture(t, { customized = false, conflict = false } = {}) {
 
 test("上游主仓不同步自身也不派发部署", async () => {
 	const result = await syncUpstream({
-		repository: "aozorae/Edgechat",
+		repository: "xuanxi369/IIeaoChat",
 		branch: "master",
 		git: () => assert.fail("No git on upstream"),
 		request: () => assert.fail("No API on upstream"),

@@ -92,7 +92,7 @@ test("窄屏演示导航独立占一行，不覆盖输入区", () => {
 });
 
 test("演示 Star 入口保留安全外链、无障碍标签与窄屏触控区域", () => {
-	assert.match(demoNavigator, /class="demo-navigator__star"[^>]*href="https:\/\/github\.com\/aozorae\/Edgechat"[^>]*target="_blank"[^>]*rel="noopener noreferrer"[^>]*:title="t\('demo\.star'\)"[^>]*:aria-label="t\('demo\.star'\)"/s);
+	assert.match(demoNavigator, /class="demo-navigator__star"[^>]*href="https:\/\/github\.com\/xuanxi369\/IIeaoChat"[^>]*target="_blank"[^>]*rel="noopener noreferrer"[^>]*:title="t\('demo\.star'\)"[^>]*:aria-label="t\('demo\.star'\)"/s);
 	assert.match(demoNavigator, /<Star[^>]*aria-hidden="true"/);
 	assert.match(getStyleRule(demoNavigator, ".demo-navigator__star:focus-visible"), /outline:\s*2px solid/);
 	const mobileStyles = demoNavigator.slice(demoNavigator.indexOf("@media (max-width: 960px)"));
@@ -130,7 +130,7 @@ test("桌面侧栏提供明确的个人设置入口并保留移动端入口", ()
 });
 
 	test("GitHub 仓库入口位于添加人员左侧并复用相同按钮尺寸", () => {
-		const githubLink = chatPage.indexOf('href="https://github.com/aozorae/Edgechat"');
+		const githubLink = chatPage.indexOf('href="https://github.com/xuanxi369/IIeaoChat"');
 		const addConversation = chatPage.indexOf(':title="t(\'chat.addPeople\')"');
 	assert.notEqual(githubLink, -1);
 	assert.ok(githubLink < addConversation);

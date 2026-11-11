@@ -2,7 +2,7 @@
   <img src="Edgechat.jpg" alt="EdgeChat" width="640" />
 
   <p>
-    <a href="https://trendshift.io/repositories/140939?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-140939" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/140939/daily?language=JavaScript" alt="aozorae%2FEdgechat | Trendshift" width="250" height="55"/></a>
+    <a href="https://github.com/xuanxi369/IIeaoChat" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub-IIeaoChat-181717?style=for-the-badge&amp;logo=github" alt="xuanxi369/IIeaoChat" /></a>
   </p>
 
   <h3>Your own chat space, without starting by maintaining a server.</h3>
@@ -10,10 +10,10 @@
   <p>Real-time group chats and DMs · Two-way Telegram bridging · Voice and files · Server-side encryption for messages and attachments</p>
 
   <p>
-    <img src="https://img.shields.io/github/license/aozorae/Edgechat?style=flat-square&color=blue" alt="license" />
-    <img src="https://img.shields.io/github/stars/aozorae/Edgechat?style=flat-square&color=orange" alt="stars" />
-    <img src="https://img.shields.io/github/forks/aozorae/Edgechat?style=flat-square" alt="forks" />
-    <img src="https://img.shields.io/github/last-commit/aozorae/Edgechat?style=flat-square" alt="last commit" />
+    <img src="https://img.shields.io/github/license/xuanxi369/IIeaoChat?style=flat-square&color=blue" alt="license" />
+    <img src="https://img.shields.io/github/stars/xuanxi369/IIeaoChat?style=flat-square&color=orange" alt="stars" />
+    <img src="https://img.shields.io/github/forks/xuanxi369/IIeaoChat?style=flat-square" alt="forks" />
+    <img src="https://img.shields.io/github/last-commit/xuanxi369/IIeaoChat?style=flat-square" alt="last commit" />
     <img src="https://img.shields.io/badge/Cloudflare-Workers-F38020?style=flat-square&logo=cloudflare&logoColor=white" alt="Cloudflare Workers" />
   </p>
 
@@ -218,7 +218,7 @@ See [DOCKER.md](DOCKER.md) for Docker-related information.
 
 The `capacitor/` client bundles the Vue Web UI in its APK and uses a small amount of Kotlin to integrate with the system file picker, notifications, microphone permissions, notification conversation navigation, and external links. Its package name is `com.aozorae.edgechat.web`. On first login, enter your own EdgeChat HTTPS service address; it is not tied to a fixed deployment.
 
-- Package: download `edgechat-*.apk` from [GitHub Releases](https://github.com/aozorae/Edgechat/releases) and verify `SHA256SUMS.txt`.
+- Package: download `edgechat-*.apk` from [GitHub Releases](https://github.com/xuanxi369/IIeaoChat/releases) and verify `SHA256SUMS.txt`.
 - First use: enter your EdgeChat HTTPS service address, account, and password.
 - Local build: prepare JDK 21 and Android SDK 36, then run `npm run build:capacitor`.
 - Debug APK: `capacitor/android/app/build/outputs/apk/debug/app-debug.apk`.
@@ -238,8 +238,8 @@ See the [Android client documentation](https://echat.azora.top/guide/android.htm
 
 ```bash
 # Get the source
-git clone https://github.com/aozorae/Edgechat.git
-cd Edgechat
+git clone https://github.com/xuanxi369/IIeaoChat.git
+cd IIeaoChat
 
 # Install dependencies
 npm install
@@ -318,23 +318,23 @@ Edgechat/
 
 ## Community and Contributions
 
-For questions, feature discussions, or to share how you use the project, open an [Issue](https://github.com/aozorae/Edgechat/issues) or join the [Telegram Community](https://t.me/EdgeChatlounge).
+For questions, feature discussions, or to share how you use the project, open an [Issue](https://github.com/xuanxi369/IIeaoChat/issues) or join the [Telegram Community](https://t.me/EdgeChatlounge).
 
 Code, documentation, translations, and issue reports all help improve the project. Pull Requests are welcome.
 
 Thanks to everyone who has helped EdgeChat:
 
-[![Contributors](https://contrib.rocks/image?repo=aozorae/Edgechat)](https://github.com/aozorae/Edgechat/graphs/contributors)
+[![Contributors](https://contrib.rocks/image?repo=xuanxi369/IIeaoChat)](https://github.com/xuanxi369/IIeaoChat/graphs/contributors)
 
 Special thanks to [@fix221](https://github.com/fix221) for submitting [PR #31](https://github.com/aozorae/Edgechat/pull/31), which added PWA support.
 
 ## Star History
 
-<a href="https://www.star-history.com/?type=date&repos=aozorae%2FEdgechat">
+<a href="https://www.star-history.com/?type=date&repos=xuanxi369%2FIIeaoChat">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=aozorae/Edgechat&type=date&theme=dark&legend=top-left&sealed_token=GpyqTbdwb3a2OHOT-WlCSoSzrumr3iwtcNluTpGbcU5CuyfP4eKf9TjtDuJ2uY4XK0P6knEB6OFCkbaAMsMCO3vnGPprGvB4f4rd7kmbUNe3fJ8LNaaGVH7JZLDT7SNNy3DC-sBxZwBmfL7gP9AFv1iKX1FgYnRZuOBGcKkbWFlBuoq2TXpYIfWmoUF9" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=aozorae/Edgechat&type=date&legend=top-left&sealed_token=GpyqTbdwb3a2OHOT-WlCSoSzrumr3iwtcNluTpGbcU5CuyfP4eKf9TjtDuJ2uY4XK0P6knEB6OFCkbaAMsMCO3vnGPprGvB4f4rd7kmbUNe3fJ8LNaaGVH7JZLDT7SNNy3DC-sBxZwBmfL7gP9AFv1iKX1FgYnRZuOBGcKkbWFlBuoq2TXpYIfWmoUF9" />
-   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=aozorae/Edgechat&type=date&legend=top-left&sealed_token=GpyqTbdwb3a2OHOT-WlCSoSzrumr3iwtcNluTpGbcU5CuyfP4eKf9TjtDuJ2uY4XK0P6knEB6OFCkbaAMsMCO3vnGPprGvB4f4rd7kmbUNe3fJ8LNaaGVH7JZLDT7SNNy3DC-sBxZwBmfL7gP9AFv1iKX1FgYnRZuOBGcKkbWFlBuoq2TXpYIfWmoUF9" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=xuanxi369/IIeaoChat&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=xuanxi369/IIeaoChat&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=xuanxi369/IIeaoChat&type=date&legend=top-left" />
  </picture>
 </a>
 
